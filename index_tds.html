@@ -1,0 +1,2152 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TDS 2026 — Sur les Traces des Ducs de Savoie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* =============================================
+       RESET & BASE
+    ============================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+      background-color: #0a0a0a;
+      color: #e8e8e8;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* =============================================
+       TYPOGRAPHY
+    ============================================= */
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 200;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+    h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      color: #ffffff;
+    }
+    h3 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #c8a96e;
+      margin-bottom: 1rem;
+    }
+    h4 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 0.8rem;
+      margin-top: 1.5rem;
+    }
+    p { font-size: 0.93rem; font-weight: 300; color: #b0b0b0; line-height: 1.9; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    /* =============================================
+       NAVIGATION
+    ============================================= */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.4rem 4rem;
+      background: rgba(10,10,10,0.9);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: padding 0.3s ease;
+    }
+    .nav-logo {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: #c8a96e;
+      cursor: pointer;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #666;
+      transition: color 0.3s ease;
+      position: relative;
+      padding-bottom: 4px;
+      cursor: pointer;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 1px;
+      background: #c8a96e;
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover { color: #fff; }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a.active { color: #fff; }
+    .nav-links a.active::after { width: 100%; }
+
+    /* =============================================
+       PAGES (routing SPA)
+    ============================================= */
+    .page { display: none; min-height: 100vh; }
+    .page.active { display: block; }
+
+    /* =============================================
+       HERO
+    ============================================= */
+    #page-home { display: block; }
+
+    #hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 50% 100%, rgba(200,169,110,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.03) 0%, transparent 60%),
+        linear-gradient(180deg, #0a0a0a 0%, #111111 50%, #0a0a0a 100%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-eyebrow {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: #c8a96e;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeInUp 1s ease 0.3s forwards;
+    }
+    .hero-title {
+      opacity: 0;
+      animation: fadeInUp 1s ease 0.6s forwards;
+      margin-bottom: 1.5rem;
+    }
+    .hero-title span { color: #c8a96e; }
+    .hero-subtitle {
+      font-size: 0.82rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #444;
+      opacity: 0;
+      animation: fadeInUp 1s ease 0.9s forwards;
+      margin-bottom: 4rem;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 4rem;
+      justify-content: center;
+      opacity: 0;
+      animation: fadeInUp 1s ease 1.2s forwards;
+    }
+    .hero-stat { text-align: center; }
+    .hero-stat-value {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 100;
+      letter-spacing: 0.05em;
+      color: #fff;
+      display: block;
+    }
+    .hero-stat-label {
+      font-size: 0.63rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #444;
+      display: block;
+      margin-top: 0.3rem;
+    }
+    .hero-divider {
+      width: 1px; height: 40px;
+      background: rgba(255,255,255,0.1);
+      align-self: center;
+    }
+    .hero-nav-cards {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      opacity: 0;
+      animation: fadeInUp 1s ease 1.8s forwards;
+      margin-top: 4rem;
+    }
+    .hero-nav-card {
+      padding: 1rem 2rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #666;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: transparent;
+      font-family: 'Outfit', sans-serif;
+    }
+    .hero-nav-card:hover {
+      color: #fff;
+      border-color: rgba(200,169,110,0.4);
+      background: rgba(200,169,110,0.05);
+    }
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem; left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0;
+      animation: fadeInUp 1s ease 2.2s forwards;
+    }
+    .scroll-indicator span {
+      font-size: 0.58rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #333;
+    }
+    .scroll-line {
+      width: 1px; height: 40px;
+      background: linear-gradient(180deg, #c8a96e, transparent);
+      animation: scrollPulse 2s ease infinite;
+    }
+
+    /* =============================================
+       PAGE LAYOUT
+    ============================================= */
+    .page-header {
+      padding: 10rem 4rem 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .page-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 4rem 8rem;
+    }
+    .section-number {
+      font-size: 0.63rem;
+      letter-spacing: 0.3em;
+      color: #2a2a2a;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    /* =============================================
+       SUB-TABS (onglets internes aux pages)
+    ============================================= */
+    .sub-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      margin-bottom: 4rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .sub-tab-btn {
+      padding: 0.9rem 2rem;
+      background: none;
+      border: none;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #444;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      font-family: 'Outfit', sans-serif;
+      white-space: nowrap;
+    }
+    .sub-tab-btn::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: 0; right: 0;
+      height: 1px;
+      background: #c8a96e;
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    .sub-tab-btn:hover { color: #fff; }
+    .sub-tab-btn.active { color: #fff; }
+    .sub-tab-btn.active::after { transform: scaleX(1); }
+
+    .sub-tab-content { display: none; }
+    .sub-tab-content.active {
+      display: block;
+      animation: fadeInUp 0.35s ease forwards;
+    }
+
+    /* =============================================
+       COMPONENTS — CARDS
+    ============================================= */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.05);
+      margin: 2rem 0;
+    }
+    .card {
+      background: #0a0a0a;
+      padding: 2.2rem;
+      transition: background 0.3s ease;
+    }
+    .card:hover { background: #0f0f0f; }
+    .card-icon { font-size: 1.4rem; margin-bottom: 1.2rem; display: block; }
+    .card-title {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #c8a96e;
+      margin-bottom: 0.6rem;
+      font-family: 'Outfit', sans-serif;
+    }
+    .card-text { font-size: 0.87rem; font-weight: 300; color: #777; line-height: 1.7; }
+
+    /* =============================================
+       COMPONENTS — TABLE
+    ============================================= */
+    .table-wrapper {
+      overflow-x: auto;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin: 1.5rem 0;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+    thead th {
+      padding: 1rem 1.4rem;
+      text-align: left;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #c8a96e;
+      background: rgba(255,255,255,0.02);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      white-space: nowrap;
+      font-family: 'Outfit', sans-serif;
+    }
+    tbody tr {
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      transition: background 0.2s ease;
+    }
+    tbody tr:hover { background: rgba(255,255,255,0.015); }
+    tbody td {
+      padding: 0.85rem 1.4rem;
+      color: #888;
+      font-weight: 300;
+      white-space: nowrap;
+    }
+    tbody td:first-child { color: #ddd; font-weight: 400; }
+    .row-highlight { background: rgba(200,169,110,0.04) !important; border-left: 2px solid #c8a96e; }
+    .row-highlight td { color: #bbb !important; }
+    .row-highlight td:first-child { color: #fff !important; }
+
+    /* =============================================
+       COMPONENTS — BADGES
+    ============================================= */
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.65rem;
+      font-size: 0.58rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-weight: 600;
+      border-radius: 2px;
+      font-family: 'Outfit', sans-serif;
+    }
+    .badge-gold  { background: rgba(200,169,110,0.12); color: #c8a96e; border: 1px solid rgba(200,169,110,0.25); }
+    .badge-blue  { background: rgba(100,160,220,0.12); color: #64a0dc; border: 1px solid rgba(100,160,220,0.25); }
+    .badge-red   { background: rgba(220,100,100,0.12); color: #dc6464; border: 1px solid rgba(220,100,100,0.25); }
+    .badge-green { background: rgba(100,200,130,0.12); color: #64c882; border: 1px solid rgba(100,200,130,0.25); }
+
+    /* =============================================
+       COMPONENTS — INFO ROWS
+    ============================================= */
+    .info-rows {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .info-row {
+      display: flex;
+      align-items: flex-start;
+      padding: 1.3rem 1.8rem;
+      border-bottom: 1px solid rgba(255,255,255,0.035);
+      gap: 2.5rem;
+      transition: background 0.2s ease;
+    }
+    .info-row:last-child { border-bottom: none; }
+    .info-row:hover { background: rgba(255,255,255,0.015); }
+    .info-label {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #444;
+      min-width: 170px;
+      padding-top: 0.1rem;
+      font-family: 'Outfit', sans-serif;
+    }
+    .info-value { font-size: 0.85rem; font-weight: 300; color: #c8c8c8; line-height: 1.6; }
+    .info-value strong { color: #fff; font-weight: 500; }
+
+    /* =============================================
+       COMPONENTS — TIMELINE
+    ============================================= */
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(180deg, #c8a96e, rgba(200,169,110,0.05));
+    }
+    .timeline-item {
+      position: relative;
+      padding-left: 2.5rem;
+      padding-bottom: 2.5rem;
+    }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-dot {
+      position: absolute;
+      left: -2rem; top: 0.4rem;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #c8a96e;
+      transform: translateX(-3px);
+    }
+    .timeline-dot.large {
+      width: 11px; height: 11px;
+      background: #fff;
+      border: 2px solid #c8a96e;
+      transform: translateX(-5px);
+    }
+    .timeline-time {
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #c8a96e;
+      margin-bottom: 0.4rem;
+      font-family: 'Outfit', sans-serif;
+    }
+    .timeline-title { font-size: 0.92rem; font-weight: 400; color: #fff; margin-bottom: 0.3rem; }
+    .timeline-detail { font-size: 0.78rem; font-weight: 300; color: #555; line-height: 1.6; }
+
+    /* =============================================
+       COMPONENTS — BOXES
+    ============================================= */
+    .highlight-box {
+      background: rgba(200,169,110,0.04);
+      border: 1px solid rgba(200,169,110,0.18);
+      border-left: 3px solid #c8a96e;
+      padding: 1.3rem 1.8rem;
+      margin: 1.8rem 0;
+    }
+    .highlight-box p { color: #b89a58; font-size: 0.83rem; }
+    .alert-box {
+      background: rgba(220,100,100,0.04);
+      border: 1px solid rgba(220,100,100,0.18);
+      border-left: 3px solid #dc6464;
+      padding: 1.3rem 1.8rem;
+      margin: 1.8rem 0;
+    }
+    .alert-box p { color: #cc8080; font-size: 0.83rem; }
+
+    /* =============================================
+       COMPONENTS — PROFILE
+    ============================================= */
+    .profile-section {
+      background: rgba(255,255,255,0.015);
+      border: 1px solid rgba(255,255,255,0.05);
+      padding: 2.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 1.8rem;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .profile-avatar {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #c8a96e, #8a6a2e);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+    .profile-name { font-family: 'Outfit', sans-serif; font-size: 1.25rem; font-weight: 300; color: #fff; }
+    .profile-sub {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #444;
+      margin-top: 0.3rem;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    /* =============================================
+       COMPONENTS — GRID LAYOUTS
+    ============================================= */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .three-col { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; }
+
+    /* =============================================
+       COMPONENTS — DROP BAGS & CHECKLISTS
+    ============================================= */
+    .drop-bag-block {
+      border: 1px solid rgba(255,255,255,0.06);
+      margin-bottom: 3rem;
+      overflow: hidden;
+    }
+    .drop-bag-header {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 1.6rem 2rem;
+      background: rgba(255,255,255,0.02);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .drop-bag-number {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 100;
+      color: #c8a96e;
+      letter-spacing: 0.05em;
+      line-height: 1;
+      min-width: 55px;
+    }
+    .drop-bag-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: #fff;
+    }
+    .drop-bag-meta {
+      font-size: 0.67rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #444;
+      margin-top: 0.3rem;
+      font-family: 'Outfit', sans-serif;
+    }
+    .checklist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+    .checklist-category {
+      padding: 1.6rem 1.8rem;
+      border-right: 1px solid rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .checklist-category:last-child { border-right: none; }
+    .checklist-cat-title {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #c8a96e;
+      margin-bottom: 1.1rem;
+      padding-bottom: 0.7rem;
+      border-bottom: 1px solid rgba(200,169,110,0.15);
+      font-family: 'Outfit', sans-serif;
+    }
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      padding: 0.35rem 0;
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: #888;
+      cursor: pointer;
+      transition: color 0.2s ease;
+      line-height: 1.4;
+    }
+    .checklist-item:hover { color: #ddd; }
+    .checklist-item input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 13px; height: 13px;
+      border: 1px solid #2a2a2a;
+      background: transparent;
+      cursor: pointer;
+      flex-shrink: 0;
+      margin-top: 1px;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    .checklist-item input[type="checkbox"]:hover { border-color: #555; }
+    .checklist-item input[type="checkbox"]:checked { background: #c8a96e; border-color: #c8a96e; }
+    .checklist-item input[type="checkbox"]:checked::after {
+      content: '✓';
+      position: absolute;
+      top: -2px; left: 1px;
+      font-size: 9px;
+      color: #0a0a0a;
+      font-weight: 700;
+    }
+    .checklist-item:has(input:checked) { color: #3a3a3a; text-decoration: line-through; }
+
+    /* =============================================
+       SECTION DIVIDER
+    ============================================= */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+      margin: 0;
+    }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.04);
+      padding: 2.5rem 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-logo {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #222;
+    }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a {
+      font-size: 0.63rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #333;
+      transition: color 0.3s;
+      cursor: pointer;
+    }
+    .footer-links a:hover { color: #c8a96e; }
+
+    /* =============================================
+       ANIMATIONS
+    ============================================= */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes scrollPulse {
+      0%,100% { opacity: 1; }
+      50%      { opacity: 0.25; }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: all 0.75s cubic-bezier(0.16,1,0.3,1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* =============================================
+       RESPONSIVE
+    ============================================= */
+    @media (max-width: 900px) {
+      nav { padding: 1.1rem 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+      .page-header { padding: 8rem 1.5rem 3rem; }
+      .page-content { padding: 2.5rem 1.5rem 6rem; }
+      .two-col { grid-template-columns: 1fr; gap: 2.5rem; }
+      .three-col { grid-template-columns: 1fr; }
+      .hero-stats { gap: 1.8rem; flex-wrap: wrap; }
+      .hero-nav-cards { flex-wrap: wrap; gap: 0.8rem; padding: 0 1rem; }
+      footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+      .sub-tab-btn { padding: 0.75rem 1.2rem; font-size: 0.62rem; }
+      .info-row { flex-direction: column; gap: 0.4rem; }
+      .info-label { min-width: unset; }
+      .checklist-grid { grid-template-columns: 1fr; }
+      .drop-bag-header { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =============================================
+       NAVIGATION
+  ============================================= -->
+  <nav id="navbar">
+    <div class="nav-logo" onclick="showPage('home')">TDS 2026</div>
+    <ul class="nav-links">
+      <li><a onclick="showPage('coureurs')"    id="nav-coureurs">Coureurs</a></li>
+      <li><a onclick="showPage('accompagnants')" id="nav-accompagnants">Accompagnants</a></li>
+      <li><a onclick="showPage('course')"      id="nav-course">Course</a></li>
+      <li><a onclick="showPage('renseignements')" id="nav-renseignements">Renseignements</a></li>
+    </ul>
+  </nav>
+  <!-- =============================================
+       PAGE : HOME
+  ============================================= -->
+  <div class="page active" id="page-home">
+    <section id="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-grid"></div>
+      <div class="hero-content">
+        <p class="hero-eyebrow">UTMB Mont-Blanc 2026</p>
+        <h1 class="hero-title">
+          TDS<br/>
+          <span>Sur les Traces</span><br/>
+          des Ducs de Savoie
+        </h1>
+        <p class="hero-subtitle">Courmayeur → Chamonix · 24 Août 2026 · 23h50</p>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <span class="hero-stat-value">150</span>
+            <span class="hero-stat-label">Kilomètres</span>
+          </div>
+          <div class="hero-divider"></div>
+          <div class="hero-stat">
+            <span class="hero-stat-value">9 500</span>
+            <span class="hero-stat-label">D+ mètres</span>
+          </div>
+          <div class="hero-divider"></div>
+          <div class="hero-stat">
+            <span class="hero-stat-value">29h55</span>
+            <span class="hero-stat-label">Objectif</span>
+          </div>
+          <div class="hero-divider"></div>
+          <div class="hero-stat">
+            <span class="hero-stat-value">680</span>
+            <span class="hero-stat-label">Index UTMB</span>
+          </div>
+        </div>
+        <div class="hero-nav-cards">
+          <button class="hero-nav-card" onclick="showPage('coureurs')">Coureurs</button>
+          <button class="hero-nav-card" onclick="showPage('accompagnants')">Accompagnants</button>
+          <button class="hero-nav-card" onclick="showPage('course')">Course</button>
+          <button class="hero-nav-card" onclick="showPage('renseignements')">Renseignements</button>
+        </div>
+      </div>
+      <div class="scroll-indicator">
+        <span>Explorer</span>
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- =============================================
+       PAGE : COUREURS
+  ============================================= -->
+  <div class="page" id="page-coureurs">
+    <div class="page-header reveal">
+      <p class="section-number">01 — Coureurs</p>
+      <h2>Informations Coureur</h2>
+    </div>
+    <div class="page-content">
+      <div class="sub-tabs">
+        <button class="sub-tab-btn active" onclick="switchSubTab(event,'coureurs','profil')">Profil & Objectif</button>
+        <button class="sub-tab-btn" onclick="switchSubTab(event,'coureurs','plan-course')">Plan de Course</button>
+        <button class="sub-tab-btn" onclick="switchSubTab(event,'coureurs','nutrition')">Nutrition Course</button>
+        <button class="sub-tab-btn" onclick="switchSubTab(event,'coureurs','equipement')">Équipement</button>
+        <button class="sub-tab-btn" onclick="switchSubTab(event,'coureurs','preparation')">Préparation</button>
+      </div>
+
+      <!-- SUB-TAB : PROFIL -->
+      <div class="sub-tab-content active" id="coureurs-profil">
+        <div class="profile-section">
+          <div class="profile-header">
+            <div class="profile-avatar">🏔️</div>
+            <div>
+              <div class="profile-name">Vivien — Coureur TDS 2026</div>
+              <div class="profile-sub">Running Stones Category · UTMB Mont-Blanc</div>
+            </div>
+          </div>
+          <div class="info-rows">
+            <div class="info-row">
+              <span class="info-label">Index UTMB</span>
+              <span class="info-value"><strong>680</strong> — Niveau confirmé ultra-trail</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Objectif</span>
+              <span class="info-value"><strong>Terminer en ~35 heures</strong> — Arrivée estimée 10h50 J+2</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Intolérance</span>
+              <span class="info-value"><strong>Gluten</strong> — Tous les produits de course certifiés sans gluten</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Préparation Paris</span>
+              <span class="info-value">20 Juillet → 8 Août — Treadmill incliné, Bois de Boulogne / Vincennes</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Préparation Chamonix</span>
+              <span class="info-value">8 Août → 23 Août — Dénivelé intensif, simulation TDS, acclimatation altitude</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Reconnaissance</span>
+              <span class="info-value">24-25-26 Juillet — Courmayeur→La Thuile · BSM→Beaufort · Hauteluce→Contamines</span>
+            </div>
+          </div>
+        </div>
+        <div class="highlight-box">
+          <p>⚡ Vitesse de référence Index 680 : ~4,0 km/h terrain montagneux · ~7,0 km/h terrain roulant · Temps estimé total : <strong>35h00</strong></p>
+        </div>
+        <div class="cards-grid">
+          <div class="card">
+            <span class="card-icon">🌑</span>
+            <div class="card-title">1ère Nuit</div>
+            <p class="card-text">23h50 → 06h00 — Km 0 à 35. Départ contrôlé depuis Courmayeur. Montée nocturne vers Checrouit et Mont-Favre. Lampe frontale 300 lm minimum.</p>
+          </div>
+          <div class="card">
+            <span class="card-icon">☀️</span>
+            <div class="card-title">Journée</div>
+            <p class="card-text">06h00 → 20h00 — Km 35 à 92. La Thuile, BSM, Passeur de Pralognan, Cormet de Roselend, Beaufort. Section la plus longue et la plus technique.</p>
+          </div>
+          <div class="card">
+            <span class="card-icon">🌑</span>
+            <div class="card-title">2ème Nuit</div>
+            <p class="card-text">20h00 → 06h30 — Km 92 à 133. Hauteluce, Barrage Girotte, Le Signal, Les Contamines. Section la plus froide. Mental +++.</p>
+          </div>
+          <div class="card">
+            <span class="card-icon">🏁</span>
+            <div class="card-title">Finish</div>
+            <p class="card-text">06h30 → 10h50 — Km 133 à 145. Col de Tricot, Les Houches, Chamonix. Arrivée estimée 10h50 J+2. Plein soleil. Tout donner.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUB-TAB : PLAN DE COURSE -->
+      <div class="sub-tab-content" id="coureurs-plan-course">
+        <div class="highlight-box">
+          <p>🗺️ Tableau heure par heure — Index UTMB 680 — Départ 23h50 le Lundi 24 Août — Arrivée estimée ~10h50 le Mercredi 26 Août</p>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Jour</th><th>H+</th><th>Heure</th><th>Km</th><th>D+</th><th>D-</th><th>Vitesse</th><th>Lieu</th><th>Phase</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Lundi 24/8</td><td>H+0</td><td>23h50</td><td>0</td><td>0</td><td>0</td><td>—</td><td>🚀 DÉPART Courmayeur</td><td>Départ</td></tr>
+              <tr><td>25/8</td><td>H+1</td><td>00h50</td><td>7</td><td>650</td><td>50</td><td>7,0 km/h</td><td>Vers Checrouit</td><td>🌑 Nuit</td></tr>
+              <tr><td>25/8</td><td>H+2</td><td>01h50</td><td>13</td><td>1 100</td><td>150</td><td>6,0 km/h</td><td>Arête Mont-Favre</td><td>🌑 Nuit</td></tr>
+              <tr><td>25/8</td><td>H+3</td><td>02h50</td><td>17</td><td>1 400</td><td>450</td><td>4,0 km/h</td><td>Lac Combal ✅</td><td>🌑 Nuit</td></tr>
+              <tr><td>25/8</td><td>H+4</td><td>03h50</td><td>22</td><td>1 900</td><td>600</td><td>5,0 km/h</td><td>Vers Col Chavannes</td><td>🌑 Nuit</td></tr>
+              <tr><td>25/8</td><td>H+5</td><td>04h50</td><td>27</td><td>2 300</td><td>900</td><td>5,0 km/h</td><td>Descente La Thuile</td><td>🌑 Nuit</td></tr>
+              <tr><td>25/8</td><td>H+6</td><td>05h50</td><td>33</td><td>2 600</td><td>1 400</td><td>6,0 km/h</td><td>Approche La Thuile</td><td>🌅 Aube</td></tr>
+              <tr><td>25/8</td><td>H+7</td><td>06h50</td><td>38</td><td>2 900</td><td>1 700</td><td>5,0 km/h</td><td>La Thuile / Petit St Bernard ✅</td><td>🌅 Aube</td></tr>
+              <tr><td>25/8</td><td>H+8</td><td>07h50</td><td>43</td><td>3 200</td><td>2 000</td><td>5,0 km/h</td><td>Vers Séez</td><td>☀️ Jour</td></tr>
+              <tr><td>25/8</td><td>H+9</td><td>08h50</td><td>48</td><td>3 500</td><td>2 800</td><td>5,0 km/h</td><td>Séez ✅</td><td>☀️ Jour</td></tr>
+              <tr class="row-highlight"><td>Mardi 25/8</td><td>H+10</td><td>09h50</td><td>51</td><td>3 600</td><td>3 000</td><td>3,0 km/h</td><td>🎒 BOURG-ST-MAURICE — Enzo</td><td>☀️ Jour</td></tr>
+              <tr><td>25/8</td><td>H+11</td><td>10h50</td><td>55</td><td>4 200</td><td>3 100</td><td>4,0 km/h</td><td>Vers Fort de la Platte</td><td>☀️ Jour</td></tr>
+              <tr><td>25/8</td><td>H+12</td><td>11h50</td><td>59</td><td>4 700</td><td>3 200</td><td>4,0 km/h</td><td>Approche Passeur Pralognan</td><td>☀️ Jour</td></tr>
+              <tr><td>25/8</td><td>H+13</td><td>12h50</td><td>63</td><td>5 100</td><td>3 500</td><td>4,0 km/h</td><td>⚠️ Passeur de Pralognan</td><td>☀️ Jour</td></tr>
+              <tr><td>25/8</td><td>H+14</td><td>13h50</td><td>67</td><td>5 200</td><td>3 800</td><td>4,0 km/h</td><td>Cormet de Roselend ✅</td><td>☀️ Jour</td></tr>
+              <tr><td>25/8</td><td>H+15</td><td>14h50</td><td>71</td><td>5 400</td><td>4 100</td><td>4,0 km/h</td><td>Col de la Sauce</td><td>☀️ Jour</td></tr>
+              <tr><td>25/8</td><td>H+16</td><td>15h50</td><td>75</td><td>5 500</td><td>4 500</td><td>4,0 km/h</td><td>La Gittaz ✅</td><td>☀️ Jour</td></tr>
+              <tr><td>25/8</td><td>H+17</td><td>16h50</td><td>79</td><td>5 800</td><td>4 800</td><td>4,0 km/h</td><td>Montée Pas d'Outray</td><td>☀️ Jour</td></tr>
+              <tr><td>25/8</td><td>H+18</td><td>17h50</td><td>83</td><td>6 300</td><td>5 000</td><td>4,0 km/h</td><td>Pas d'Outray ✅</td><td>☀️ Jour</td></tr>
+              <tr><td>25/8</td><td>H+19</td><td>18h50</td><td>88</td><td>6 400</td><td>5 600</td><td>5,0 km/h</td><td>Descente Beaufort</td><td>🌅 Soir</td></tr>
+              <tr class="row-highlight"><td>Mardi 25/8</td><td>H+20</td><td>19h50</td><td>92</td><td>6 500</td><td>6 000</td><td>4,0 km/h</td><td>🎒 BEAUFORT — Enzo</td><td>🌅 Soir</td></tr>
+              <tr><td>25/8</td><td>H+21</td><td>20h50</td><td>97</td><td>6 800</td><td>6 200</td><td>5,0 km/h</td><td>Vers Hauteluce</td><td>🌑 Nuit</td></tr>
+              <tr><td>25/8</td><td>H+22</td><td>21h50</td><td>102</td><td>7 100</td><td>6 500</td><td>5,0 km/h</td><td>Hauteluce ✅</td><td>🌑 Nuit</td></tr>
+              <tr><td>25/8</td><td>H+23</td><td>22h50</td><td>106</td><td>7 500</td><td>6 700</td><td>4,0 km/h</td><td>Vers Barrage Girotte</td><td>🌑 Nuit</td></tr>
+              <tr><td>Mercredi 26/8</td><td>H+24</td><td>23h50</td><td>109</td><td>7 900</td><td>6 800</td><td>3,0 km/h</td><td>Barrage de la Girotte ✅</td><td>🌑 Nuit</td></tr>
+              <tr><td>26/8</td><td>H+25</td><td>00h50</td><td>113</td><td>8 100</td><td>7 200</td><td>4,0 km/h</td><td>Descente vers Le Signal</td><td>🌑 Nuit</td></tr>
+              <tr><td>26/8</td><td>H+26</td><td>01h50</td><td>117</td><td>8 300</td><td>7 500</td><td>4,0 km/h</td><td>Le Signal ✅</td><td>🌑 Nuit</td></tr>
+              <tr><td>26/8</td><td>H+27</td><td>02h50</td><td>121</td><td>8 500</td><td>7 900</td><td>4,0 km/h</td><td>Descente Les Contamines</td><td>🌑 Nuit</td></tr>
+              <tr class="row-highlight"><td>Mercredi 26/8</td><td>H+28</td><td>03h50</td><td>125</td><td>8 600</td><td>8 200</td><td>4,0 km/h</td><td>🎒 LES CONTAMINES — Enzo</td><td>🌑 Nuit</td></tr>
+              <tr><td>26/8</td><td>H+29</td><td>04h50</td><td>129</td><td>8 750</td><td>8 500</td><td>4,0 km/h</td><td>Vers Col de Tricot</td><td>🌅 Aube</td></tr>
+              <tr><td>26/8</td><td>H+30</td><td>05h50</td><td>133</td><td>8 900</td><td>8 700</td><td>4,0 km/h</td><td>Col de Tricot</td><td>🌅 Aube</td></tr>
+              <tr><td>26/8</td><td>H+31</td><td>06h50</td><td>137</td><td>9 000</td><td>8 900</td><td>4,0 km/h</td><td>Descente Les Houches</td><td>☀️ Jour</td></tr>
+              <tr><td>26/8</td><td>H+32</td><td>07h50</td><td>141</td><td>9 100</td><td>9 200</td><td>4,0 km/h</td><td>Les Houches ✅ (optionnel)</td><td>☀️ Jour</td></tr>
+              <tr><td>26/8</td><td>H+33</td><td>08h50</td><td>146</td><td>9 200</td><td>9 400</td><td>5,0 km/h</td><td>Montée Chamonix</td><td>☀️ Jour</td></tr>
+              <tr><td>26/8</td><td>H+34</td><td>09h50</td><td>150</td><td>9 250</td><td>9 600</td><td>4,0 km/h</td><td>Approche finale</td><td>☀️ Jour</td></tr>
+              <tr class="row-highlight"><td>Mercredi 26/8</td><td>H+35</td><td>10h50</td><td>152</td><td>9 300</td><td>9 700</td><td>—</td><td>🏁 ARRIVÉE CHAMONIX</td><td>🎯 Finish</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- SUB-TAB : NUTRITION -->
+      <div class="sub-tab-content" id="coureurs-nutrition">
+        <div class="highlight-box">
+          <p>🍌 Plan nutritionnel sans gluten sur 35h de course — 60-80g glucides/heure — 500-700ml eau/heure</p>
+        </div>
+        <div class="cards-grid">
+          <div class="card">
+            <span class="card-icon">⚡</span>
+            <div class="card-title">Dépense totale</div>
+            <p class="card-text">~18 000 – 22 000 kcal dépensées. Absorption possible : ~8 000 – 10 000 kcal. Objectif : 65-75g glucides/heure.</p>
+          </div>
+          <div class="card">
+            <span class="card-icon">💧</span>
+            <div class="card-title">Hydratation</div>
+            <p class="card-text">500-700 ml/heure. Total estimé : 17-20 litres sur 35h. Alterner eau pure et boisson isotonique sans gluten.</p>
+          </div>
+          <div class="card">
+            <span class="card-icon">☕</span>
+            <div class="card-title">Caféine</div>
+            <p class="card-text">8 prises espacées 90 min : H+6 · H+10 · H+14 · H+18 · H+22 · H+25 · H+28 · H+32. Maximum 400mg/jour.</p>
+          </div>
+          <div class="card">
+            <span class="card-icon">🧂</span>
+            <div class="card-title">Sodium</div>
+            <p class="card-text">500-1000mg/heure. 2 capsules de sel toutes les 2h. ~20 capsules sur la course. Magnésium si crampes.</p>
+          </div>
+        </div>
+        <div class="alert-box">
+          <p>⚠️ <strong>Règle d'or :</strong> Manger avant d'avoir faim · Boire avant d'avoir soif · Alterner sucré/salé · Ne jamais tester un nouveau produit le jour J</p>
+        </div>
+      </div>
+
+      <!-- SUB-TAB : ÉQUIPEMENT -->
+      <div class="sub-tab-content" id="coureurs-equipement">
+        <div class="highlight-box">
+          <p>🎽 Équipement obligatoire TDS — Liste non exhaustive. Consulter le règlement officiel UTMB pour la liste complète et définitive.</p>
+        </div>
+        <div class="two-col">
+          <div>
+            <h3>Équipement Obligatoire</h3>
+            <div class="info-rows">
+              <div class="info-row"><span class="info-label">Navigation</span><span class="info-value">GPX chargé sur montre + téléphone hors-ligne</span></div>
+              <div class="info-row"><span class="info-label">Éclairage</span><span class="info-value">Lampe frontale principale (300 lm min) + secours</span></div>
+              <div class="info-row"><span class="info-label">Protection</span><span class="info-value">Veste Gore-Tex · Collant thermique · Bonnet · Gants</span></div>
+              <div class="info-row"><span class="info-label">Survie</span><span class="info-value">Couverture de survie · Sifflet · Kit premiers secours</span></div>
+              <div class="info-row"><span class="info-label">Hydratation</span><span class="info-value">Flasques ou poche à eau minimum 1L</span></div>
+              <div class="info-row"><span class="info-label">Téléphone</span><span class="info-value">Chargé · Numéro organisation enregistré</span></div>
+            </div>
+          </div>
+          <div>
+            <h3>Équipement Recommandé</h3>
+            <div class="info-rows">
+              <div class="info-row"><span class="info-label">Bâtons</span><span class="info-value">Trail carbon · Pointes vérifiées</span></div>
+              <div class="info-row"><span class="info-label">Chaussures</span><span class="info-value">Trail running · Semelle adaptée terrain alpin</span></div>
+              <div class="info-row"><span class="info-label">Guêtres</span><span class="info-value">Protection pierres et boue</span></div>
+              <div class="info-row"><span class="info-label">Montre GPS</span><span class="info-value">Autonomie 40h+ · Altimètre barométrique</span></div>
+              <div class="info-row"><span class="info-label">Powerbank</span><span class="info-value">Dans drop bags — ne pas porter pendant la course</span></div>
+              <div class="info-row"><span class="info-label">Gants légers</span><span class="info-value">Passeur de Pralognan — cordes fixes</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUB-TAB : PRÉPARATION -->
+      <div class="sub-tab-content" id="coureurs-preparation">
+        <div class="two-col">
+          <div>
+            <h3>Phase Paris — 20 Juil → 8 Août</h3>
+            <div class="timeline">
+              <div class="timeline-item">
+                <div class="timeline-dot large"></div>
+                <div class="timeline-time">Semaine 1 — 20-27 Juillet</div>
+                <div class="timeline-title">Mise en route</div>
+                <div class="timeline-detail">Volume modéré · Bois de Boulogne · Renforcement musculaire · Habitudes nutritionnelles</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot large"></div>
+                <div class="timeline-time">Semaine 2 — 28 Juil - 3 Août</div>
+                <div class="timeline-title">Charge maximale</div>
+                <div class="timeline-detail">Sortie longue 4h+ · Treadmill incliné 3h simulation D+ · Fractionné seuil</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-time">Semaine 3 — 4-8 Août</div>
+                <div class="timeline-title">Transition</div>
+                <div class="timeline-detail">Réduction volume · Préparation départ Chamonix · Dernier effort Paris</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot large"></div>
+                <div class="timeline-time">24-25-26 Juillet — RECONNAISSANCE</div>
+                <div class="timeline-title">Sections clés TDS</div>
+                <div class="timeline-detail">J1 : Courmayeur→La Thuile (36km / +2900m) · J2 : BSM→Beaufort (41km) · J3 : Hauteluce→Contamines (44km)</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h3>Phase Chamonix — 8 → 23 Août</h3>
+            <div class="timeline">
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-time">8-9 Août</div>
+                <div class="timeline-title">Acclimatation altitude</div>
+                <div class="timeline-detail">Première montée Brévent · +1200m D+ · Hydratation +20%</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot large"></div>
+                <div class="timeline-time">10-15 Août — Semaine spécifique</div>
+                <div class="timeline-title">Accumulation D+</div>
+                <div class="timeline-detail">Col de Voza · Aiguillette des Posettes · Brévent · Flégère · ~2000-2500m D+/sortie</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot large"></div>
+                <div class="timeline-time">Samedi 15 Août</div>
+                <div class="timeline-title">🔥 Simulation TDS 6-7h</div>
+                <div class="timeline-detail">Chamonix → Flégère → Brévent → retour · +2500m D+ · Test nutrition complète</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-time">16-20 Août — Affûtage</div>
+                <div class="timeline-title">Réduction charge</div>
+                <div class="timeline-detail">Volume -50% · Intensité maintenue · Glucides augmentés progressivement</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot large"></div>
+                <div class="timeline-time">21-23 Août — Pré-course</div>
+                <div class="timeline-title">Repos & charge glycogène</div>
+                <div class="timeline-detail">Footing 30min J-3 · Charge glucidique · Dîner J-1 à 17h30 · Coucher tôt</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =============================================
+       PAGE : ACCOMPAGNANTS
+  ============================================= -->
+  <div class="page" id="page-accompagnants">
+    <div class="page-header reveal">
+      <p class="section-number">02 — Accompagnants</p>
+      <h2>Guide Accompagnant</h2>
+    </div>
+    <div class="page-content">
+      <div class="sub-tabs">
+        <button class="sub-tab-btn active" onclick="switchSubTab(event,'accompagnants','enzo')">Enzo — Mon Accompagnant</button>
+        <button class="sub-tab-btn" onclick="switchSubTab(event,'accompagnants','planning')">Planning & Logistique</button>
+        <button class="sub-tab-btn" onclick="switchSubTab(event,'accompagnants','assistance')">Points d'Assistance</button>
+        <button class="sub-tab-btn" onclick="switchSubTab(event,'accompagnants','dropbags')">Drop Bags & Checklists</button>
+        <button class="sub-tab-btn" onclick="switchSubTab(event,'accompagnants','recuperation')">Récupération</button>
+      </div>
+
+      <!-- SUB-TAB : ENZO -->
+      <div class="sub-tab-content active" id="accompagnants-enzo">
+        <div class="profile-section">
+          <div class="profile-header">
+            <div class="profile-avatar" style="background: linear-gradient(135deg,#4a90d9,#2a5a9a);">🤝</div>
+            <div>
+              <div class="profile-name">Enzo Garry</div>
+              <div class="profile-sub">Support logistique & émotionnel · TDS 2026</div>
+            </div>
+          </div>
+          <div class="info-rows">
+            <div class="info-row">
+              <span class="info-label">Rôle</span>
+              <span class="info-value"><strong>Support logistique & émotionnel</strong> — Ravitaillements, drop bags, motivation</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Trajet</span>
+              <span class="info-value"><strong>Luxembourg → Genève</strong> (plus rentable) puis navette / bus vers Chamonix</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Arrivée Chamonix</span>
+              <span class="info-value"><strong>Samedi 22 Août — matin</strong></span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Départ Chamonix</span>
+              <span class="info-value"><strong>Dimanche 30 Août</strong> — reste pour voir l'UTMB en spectateur</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Logement</span>
+              <span class="info-value"><strong>Saint-Gervais</strong> — base centrale pour les ravitaillements</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Transport course</span>
+              <span class="info-value">Covoiturage Victor + stop + navettes. <strong>Navette officielle 62€ non retenue</strong> (1 seul trajet).</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Jours de présence</span>
+              <span class="info-value"><strong>Mardi 25 Août (RTT)</strong> + <strong>Mercredi 26 matin</strong> — assure les 3 ravitaillements</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Récupération</span>
+              <span class="info-value">Massage, bottes de compression, bain de glace — Mercredi / Jeudi post-course</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          <p>💬 <em>"Faire le support logistique et émotionnel ❤️"</em> — Enzo, WhatsApp 19/07/2026</p>
+        </div>
+
+        <div class="cards-grid">
+          <div class="card">
+            <span class="card-icon">🚌</span>
+            <div class="card-title">Transport Genève</div>
+            <p class="card-text">Vol Lux → Genève. Bus ou navette Genève → Chamonix. Coordonner avec Victor pour la voiture le jour de la course.</p>
+          </div>
+          <div class="card">
+            <span class="card-icon">🎒</span>
+            <div class="card-title">Drop Bags</div>
+            <p class="card-text">Préparation des 3 drop bags le Dimanche 23 Août. Chaque sac étiqueté Nom + Dossard + Nom du point.</p>
+          </div>
+          <div class="card">
+            <span class="card-icon">🔋</span>
+            <div class="card-title">Électronique</div>
+            <p class="card-text">Récupérer le matériel électronique aux ravitaillements pour recharge. Powerbanks, câbles et piles dans chaque drop bag.</p>
+          </div>
+          <div class="card">
+            <span class="card-icon">❤️</span>
+            <div class="card-title">Support Émotionnel</div>
+            <p class="card-text">Présence aux 3 points d'assistance. Encouragements, rappel du plan, gestion du mental aux moments difficiles.</p>
+          </div>
+        </div>
+
+        <div class="alert-box">
+          <p>⚠️ <strong>Pass accompagnant :</strong> Vérifier si Enzo doit s'inscrire sur le site UTMB. Pass bus à confirmer avant le départ.</p>
+        </div>
+      </div>
+
+      <!-- SUB-TAB : PLANNING -->
+      <div class="sub-tab-content" id="accompagnants-planning">
+        <div class="two-col" style="margin-bottom:4rem;">
+          <div>
+            <h3>Avant la Course</h3>
+            <div class="timeline">
+              <div class="timeline-item">
+                <div class="timeline-dot large"></div>
+                <div class="timeline-time">Samedi 22 Août — matin</div>
+                <div class="timeline-title">Arrivée Chamonix ✈️</div>
+                <div class="timeline-detail">Vol Luxembourg → Genève. Navette Genève → Chamonix. Check-in Saint-Gervais.</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-time">Samedi 22 Août — après-midi</div>
+                <div class="timeline-title">Mini rando 🏔️</div>
+                <div class="timeline-detail">Sortie légère ensemble, 10 km max. Repos pour Vivien.</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot large"></div>
+                <div class="timeline-time">Dimanche 23 Août — journée</div>
+                <div class="timeline-title">Préparation des sacs 🎒</div>
+                <div class="timeline-detail">Préparer et vérifier les 3 drop bags ensemble. Étiqueter chaque sac.</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-time">Dimanche 23 Août — 18h00</div>
+                <div class="timeline-title">Retrait dossard + Village UTMB 🏅</div>
+                <div class="timeline-detail">Récupération dossard avec Vivien. Tour du village UTMB.</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-time">Lundi 24 Août</div>
+                <div class="timeline-title">Enzo travaille 💼</div>
+                <div class="timeline-detail">Vivien en repos total. Préparation mentale et physique.</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot large"></div>
+                <div class="timeline-time">Lundi 24 Août — 23h50</div>
+                <div class="timeline-title">🚀 DÉPART TDS — Courmayeur</div>
+                <div class="timeline-detail">Enzo pose RTT. Se prépare pour Ravito 1.</div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h3>Pendant & Après la Course</h3>
+            <div class="timeline">
+              <div class="timeline-item">
+                <div class="timeline-dot large"></div>
+                <div class="timeline-time">Mardi 25 Août — ~09h50</div>
+                <div class="timeline-title">🎒 Ravito 1 — Bourg-St-Maurice</div>
+                <div class="timeline-detail">Km 51 · H+10. Drop Bag 1. Stop max 20 min. Covoiturage Victor.</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot large"></div>
+                <div class="timeline-time">Mardi 25 Août — ~19h50</div>
+                <div class="timeline-title">🎒 Ravito 2 — Beaufort</div>
+                <div class="timeline-detail">Km 92 · H+20. Drop Bag 2. Navette Chamonix→Beaufort ✅. Préparer vêtements nuit.</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot large"></div>
+                <div class="timeline-time">Mercredi 26 Août — ~03h50</div>
+                <div class="timeline-title">🎒 Ravito 3 — Les Contamines</div>
+                <div class="timeline-detail">Km 125 · H+28. Drop Bag 3. Stop/covoiturage depuis St-Gervais ❌ pas de navette.</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-time">Mercredi 26 Août — ~07h50</div>
+                <div class="timeline-title">Les Houches (optionnel)</div>
+                <div class="timeline-detail">Km 141. Optionnel — Enzo peut se positionner directement à Chamonix.</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot large"></div>
+                <div class="timeline-time">Mercredi 26 Août — ~10h50</div>
+                <div class="timeline-title">🏁 ARRIVÉE — Chamonix</div>
+                <div class="timeline-detail">Présent ligne d'arrivée avec tenue d'arrivée. Photos. Récupération immédiate.</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-time">Mercredi 26 — Jeudi 27 Août</div>
+                <div class="timeline-title">😴 Coma post-course</div>
+                <div class="timeline-detail">Enzo travaille. Vivien récupère. Massage si possible.</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-time">Vendredi 28 Août</div>
+                <div class="timeline-title">🎉 Célébration</div>
+                <div class="timeline-detail">Enzo off. Fêter la finition TDS ensemble.</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot large"></div>
+                <div class="timeline-time">Vendredi 28 → Dimanche 30 Août</div>
+                <div class="timeline-title">🏃 UTMB en spectateurs</div>
+                <div class="timeline-detail">Regarder l'UTMB ensemble. Départ Enzo dimanche 30.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h3>Logistique Transport</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Ravito</th><th>Lieu</th><th>Heure</th><th>Transport Enzo</th><th>Navette officielle</th><th>Statut</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Ravito 1</td><td>Bourg-St-Maurice</td><td>~09h50</td>
+                <td>Covoiturage Victor / stop</td>
+                <td>❌ Pas de navette Cham→BSM</td>
+                <td><span class="badge badge-red">À organiser</span></td>
+              </tr>
+              <tr>
+                <td>Ravito 2</td><td>Beaufort</td><td>~19h50</td>
+                <td>Navette Chamonix → Beaufort</td>
+                <td>✅ Disponible</td>
+                <td><span class="badge badge-green">Confirmé</span></td>
+              </tr>
+              <tr>
+                <td>Ravito 3</td><td>Les Contamines</td><td>~03h50</td>
+                <td>St-Gervais → stop / covoiturage</td>
+                <td>❌ Pas de navette</td>
+                <td><span class="badge badge-red">À organiser</span></td>
+              </tr>
+              <tr>
+                <td>Optionnel</td><td>Les Houches</td><td>~07h50</td>
+                <td>Se positionner à Chamonix</td><td>—</td>
+                <td><span class="badge badge-blue">Optionnel</span></td>
+              </tr>
+              <tr>
+                <td>Arrivée</td><td>Chamonix</td><td>~10h50</td>
+                <td>Sur place</td><td>—</td>
+                <td><span class="badge badge-green">Obligatoire</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="highlight-box">
+          <p>🚗 <strong>Contact Victor :</strong> Coordonner pour BSM et Contamines. Le covoiturage et le stop fonctionnent bien pendant l'UTMB Week.</p>
+        </div>
+      </div>
+
+      <!-- SUB-TAB : POINTS D'ASSISTANCE -->
+      <div class="sub-tab-content" id="accompagnants-assistance">
+        <div class="highlight-box" style="margin-bottom:2rem;">
+          <p>📍 <strong>3 bases vie officielles + 1 optionnel.</strong> Stop max 20 min. Enzo apporte le drop bag, recharge l'électronique, prépare le repas chaud et assure le support émotionnel.</p>
+        </div>
+
+        <div class="table-wrapper" style="margin-bottom:3rem;">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th><th>Lieu</th><th>Km</th><th>Heure réelle</th><th>D+ cumulé</th><th>Type</th><th>Actions Enzo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="row-highlight">
+                <td>1</td><td>Bourg-St-Maurice</td><td>51</td><td>~09h50</td><td>3 600m</td>
+                <td><span class="badge badge-gold">Base Vie</span></td>
+                <td>Drop Bag 1 · Repas chaud · Recharge élec · Rechange · 20 min</td>
+              </tr>
+              <tr class="row-highlight">
+                <td>2</td><td>Beaufort</td><td>92</td><td>~19h50</td><td>6 500m</td>
+                <td><span class="badge badge-gold">Base Vie</span></td>
+                <td>Drop Bag 2 · Vêtements nuit · Lampes · Repas · 20 min</td>
+              </tr>
+              <tr class="row-highlight">
+                <td>3</td><td>Les Contamines</td><td>125</td><td>~03h50</td><td>8 600m</td>
+                <td><span class="badge badge-gold">Base Vie</span></td>
+                <td>Drop Bag 3 · Recharge · Mental · Sac arrivée · 20 min</td>
+              </tr>
+              <tr>
+                <td>(Opt)</td><td>Les Houches</td><td>141</td><td>~07h50</td><td>9 100m</td>
+                <td><span class="badge badge-blue">Optionnel</span></td>
+                <td>Optionnel — Vivien connaît le parcours</td>
+              </tr>
+              <tr>
+                <td>🏁</td><td>Chamonix — Arrivée</td><td>152</td><td>~10h50</td><td>9 300m</td>
+                <td><span class="badge badge-green">Arrivée</span></td>
+                <td>Tenue arrivée · Photos · Récupération immédiate</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Actions Détaillées à Chaque Point</h3>
+        <div class="three-col">
+          <div>
+            <div class="card" style="border:1px solid rgba(200,169,110,0.15);">
+              <div class="card-title">🎒 Bourg-St-Maurice — 09h50</div>
+              <p class="card-text" style="margin-top:0.5rem;">
+                ☐ Remettre Drop Bag 1<br>
+                ☐ Préparer repas chaud<br>
+                ☐ Recharger montre + téléphone<br>
+                ☐ Vérifier pieds avec Vivien<br>
+                ☐ Remplir bidons<br>
+                ☐ Encourager — 50km déjà faits !
+              </p>
+            </div>
+          </div>
+          <div>
+            <div class="card" style="border:1px solid rgba(200,169,110,0.15);">
+              <div class="card-title">🎒 Beaufort — 19h50</div>
+              <p class="card-text" style="margin-top:0.5rem;">
+                ☐ Remettre Drop Bag 2<br>
+                ☐ Vêtements nuit sortis et prêts<br>
+                ☐ Vérifier lampes frontales<br>
+                ☐ Repas chaud + bouillon<br>
+                ☐ Recharge électronique<br>
+                ☐ 2ème nuit — soutien mental ++
+              </p>
+            </div>
+          </div>
+          <div>
+            <div class="card" style="border:1px solid rgba(200,169,110,0.15);">
+              <div class="card-title">🎒 Les Contamines — 03h50</div>
+              <p class="card-text" style="margin-top:0.5rem;">
+                ☐ Remettre Drop Bag 3<br>
+                ☐ Soupe chaude + solide<br>
+                ☐ Dernière recharge élec<br>
+                ☐ Sac arrivée prêt pour Chamonix<br>
+                ☐ Rappeler : 27 km restants !<br>
+                ☐ Motivation maximale ❤️
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUB-TAB : DROP BAGS -->
+      <div class="sub-tab-content" id="accompagnants-dropbags">
+        <div class="highlight-box" style="margin-bottom:2rem;">
+          <p>📦 <strong>3 drop bags préparés avec Enzo le Dimanche 23 Août.</strong> Chaque catégorie dans un sac ziploc étiqueté. Liste à cocher avant le départ.</p>
+        </div>
+
+        <!-- DROP BAG 1 -->
+        <div class="drop-bag-block">
+          <div class="drop-bag-header">
+            <div class="drop-bag-number">01</div>
+            <div>
+              <div class="drop-bag-title">Bourg-Saint-Maurice</div>
+              <div class="drop-bag-meta">Km 51 · H+10 · ~09h50 · Mardi 25 Août · ☀️ Plein jour</div>
+            </div>
+            <span class="badge badge-gold" style="margin-left:auto;align-self:center;">BASE VIE</span>
+          </div>
+          <div class="checklist-grid">
+            <div class="checklist-category">
+              <div class="checklist-cat-title">🍌 Nutrition</div>
+              <label class="checklist-item"><input type="checkbox"> 10 gels énergétiques sans gluten</label>
+              <label class="checklist-item"><input type="checkbox"> 3 gels caféinés sans gluten</label>
+              <label class="checklist-item"><input type="checkbox"> 5 barres sans gluten</label>
+              <label class="checklist-item"><input type="checkbox"> 6 pâtes de fruits</label>
+              <label class="checklist-item"><input type="checkbox"> 100g fruits secs</label>
+              <label class="checklist-item"><input type="checkbox"> 80g noix / amandes</label>
+              <label class="checklist-item"><input type="checkbox"> 10 capsules de sel</label>
+              <label class="checklist-item"><input type="checkbox"> 4 sachets isotonique</label>
+              <label class="checklist-item"><input type="checkbox"> 4 sachets électrolytes</label>
+              <label class="checklist-item"><input type="checkbox"> Fromage / jambon / bananes</label>
+              <label class="checklist-item"><input type="checkbox"> Barres de riz soufflé</label>
+            </div>
+            <div class="checklist-category">
+              <div class="checklist-cat-title">👕 Vêtements</div>
+              <label class="checklist-item"><input type="checkbox"> T-shirt technique neuf</label>
+              <label class="checklist-item"><input type="checkbox"> Chaussettes neuves</label>
+              <label class="checklist-item"><input type="checkbox"> Manchettes bras</label>
+              <label class="checklist-item"><input type="checkbox"> Casquette propre</label>
+              <label class="checklist-item"><input type="checkbox"> Lunettes soleil</label>
+              <label class="checklist-item"><input type="checkbox"> Crème solaire SPF50</label>
+              <label class="checklist-item"><input type="checkbox"> Crème anti-frottements</label>
+              <label class="checklist-item"><input type="checkbox"> Compeed x4</label>
+            </div>
+            <div class="checklist-category">
+              <div class="checklist-cat-title">🔋 Électronique</div>
+              <label class="checklist-item"><input type="checkbox"> Powerbank 20 000 mAh (100%)</label>
+              <label class="checklist-item"><input type="checkbox"> Câble USB-C x2</label>
+              <label class="checklist-item"><input type="checkbox"> Piles AAA x6</label>
+              <label class="checklist-item"><input type="checkbox"> Lampe frontale de secours</label>
+              <label class="checklist-item"><input type="checkbox"> Écouteurs</label>
+            </div>
+            <div class="checklist-category">
+              <div class="checklist-cat-title">🩺 Pharmacie</div>
+              <label class="checklist-item"><input type="checkbox"> Anti-inflammatoires (sans gluten)</label>
+              <label class="checklist-item"><input type="checkbox"> Paracétamol (sans gluten)</label>
+              <label class="checklist-item"><input type="checkbox"> Strapping tape</label>
+              <label class="checklist-item"><input type="checkbox"> Bande élastique</label>
+              <label class="checklist-item"><input type="checkbox"> Lingettes désinfectantes</label>
+            </div>
+          </div>
+          <div class="alert-box" style="margin:0;border-radius:0;border:none;border-top:1px solid rgba(220,100,100,0.15);">
+            <p>🏷️ <strong>Étiquette obligatoire :</strong> Nom + Dossard + "BOURG-ST-MAURICE KM 51"</p>
+          </div>
+        </div>
+
+        <!-- DROP BAG 2 -->
+        <div class="drop-bag-block">
+          <div class="drop-bag-header">
+            <div class="drop-bag-number">02</div>
+            <div>
+              <div class="drop-bag-title">Beaufort</div>
+              <div class="drop-bag-meta">Km 92 · H+20 · ~19h50 · Mardi 25 Août · 🌅 Soir — 2ème nuit commence</div>
+            </div>
+            <span class="badge badge-gold" style="margin-left:auto;align-self:center;">BASE VIE</span>
+          </div>
+          <div class="checklist-grid">
+            <div class="checklist-category">
+              <div class="checklist-cat-title">🍌 Nutrition</div>
+              <label class="checklist-item"><input type="checkbox"> 10 gels énergétiques sans gluten</label>
+              <label class="checklist-item"><input type="checkbox"> 4 gels caféinés sans gluten</label>
+              <label class="checklist-item"><input type="checkbox"> 5 barres sans gluten</label>
+              <label class="checklist-item"><input type="checkbox"> 6 pâtes de fruits</label>
+              <label class="checklist-item"><input type="checkbox"> 100g fruits secs (dattes)</label>
+              <label class="checklist-item"><input type="checkbox"> 80g noix / amandes</label>
+              <label class="checklist-item"><input type="checkbox"> 10 capsules de sel</label>
+              <label class="checklist-item"><input type="checkbox"> 2 comprimés caféine pure</label>
+              <label class="checklist-item"><input type="checkbox"> 4 sachets isotonique</label>
+              <label class="checklist-item"><input type="checkbox"> 4 sachets électrolytes</label>
+              <label class="checklist-item"><input type="checkbox"> Bouillon cube x4 (sans gluten)</label>
+              <label class="checklist-item"><input type="checkbox"> Bœuf séché sans gluten</label>
+              <label class="checklist-item"><input type="checkbox"> Fromage portions x3</label>
+              <label class="checklist-item"><input type="checkbox"> Bananes x2</label>
+              <label class="checklist-item"><input type="checkbox"> Soupe miso sans gluten x2</label>
+              <label class="checklist-item"><input type="checkbox"> Purée patate douce x2</label>
+            </div>
+            <div class="checklist-category">
+              <div class="checklist-cat-title">🧥 Vêtements Nuit</div>
+              <label class="checklist-item"><input type="checkbox"> T-shirt thermique manches longues</label>
+              <label class="checklist-item"><input type="checkbox"> Veste imperméable Gore-Tex</label>
+              <label class="checklist-item"><input type="checkbox"> Polaire / softshell léger</label>
+              <label class="checklist-item"><input type="checkbox"> Manchettes thermiques</label>
+              <label class="checklist-item"><input type="checkbox"> Collant long thermique</label>
+              <label class="checklist-item"><input type="checkbox"> Chaussettes laine mérinos neuves</label>
+              <label class="checklist-item"><input type="checkbox"> Bonnet léger</label>
+              <label class="checklist-item"><input type="checkbox"> Gants trail légers</label>
+              <label class="checklist-item"><input type="checkbox"> Gants imperméables</label>
+              <label class="checklist-item"><input type="checkbox"> Buff propre</label>
+              <label class="checklist-item"><input type="checkbox"> Surpantalon imperméable</label>
+            </div>
+            <div class="checklist-category">
+              <div class="checklist-cat-title">🔋 Électronique</div>
+              <label class="checklist-item"><input type="checkbox"> Powerbank 20 000 mAh (100%)</label>
+              <label class="checklist-item"><input type="checkbox"> Câble USB-C x2</label>
+              <label class="checklist-item"><input type="checkbox"> Piles AAA neuves x12</label>
+              <label class="checklist-item"><input type="checkbox"> Lampe frontale secours vérifiée</label>
+              <label class="checklist-item"><input type="checkbox"> Écouteurs rechargés</label>
+            </div>
+            <div class="checklist-category">
+              <div class="checklist-cat-title">🩺 Pharmacie</div>
+              <label class="checklist-item"><input type="checkbox"> Compeed x8</label>
+              <label class="checklist-item"><input type="checkbox"> Aiguille stérile x2</label>
+              <label class="checklist-item"><input type="checkbox"> Alcool désinfectant</label>
+              <label class="checklist-item"><input type="checkbox"> Patch chauffant x2</label>
+              <label class="checklist-item"><input type="checkbox"> Spray chaud/froid</label>
+              <label class="checklist-item"><input type="checkbox"> Strapping tape</label>
+              <label class="checklist-item"><input type="checkbox"> Paracétamol (sans gluten)</label>
+                            <label class="checklist-item"><input type="checkbox"> Ibuprofène (sans gluten)</label>
+              <label class="checklist-item"><input type="checkbox"> Sérum physiologique x3</label>
+              <label class="checklist-item"><input type="checkbox"> Bonbons caféine x5</label>
+              <label class="checklist-item"><input type="checkbox"> Mélatonine 0,5mg</label>
+            </div>
+          </div>
+          <div class="alert-box" style="margin:0;border-radius:0;border:none;border-top:1px solid rgba(220,100,100,0.15);">
+            <p>🏷️ <strong>Étiquette obligatoire :</strong> Nom + Dossard + "BEAUFORT KM 92"</p>
+          </div>
+        </div>
+
+        <!-- DROP BAG 3 -->
+        <div class="drop-bag-block">
+          <div class="drop-bag-header">
+            <div class="drop-bag-number">03</div>
+            <div>
+              <div class="drop-bag-title">Les Contamines</div>
+              <div class="drop-bag-meta">Km 125 · H+28 · ~03h50 · Mercredi 26 Août · 🌑 Nuit profonde — 27 km restants</div>
+            </div>
+            <span class="badge badge-gold" style="margin-left:auto;align-self:center;">BASE VIE</span>
+          </div>
+          <div class="checklist-grid">
+            <div class="checklist-category">
+              <div class="checklist-cat-title">🍌 Nutrition</div>
+              <label class="checklist-item"><input type="checkbox"> 6 gels énergétiques sans gluten</label>
+              <label class="checklist-item"><input type="checkbox"> 3 gels caféinés sans gluten</label>
+              <label class="checklist-item"><input type="checkbox"> 3 barres sans gluten</label>
+              <label class="checklist-item"><input type="checkbox"> 4 pâtes de fruits</label>
+              <label class="checklist-item"><input type="checkbox"> 60g fruits secs</label>
+              <label class="checklist-item"><input type="checkbox"> 6 capsules de sel</label>
+              <label class="checklist-item"><input type="checkbox"> 2 sachets isotonique</label>
+              <label class="checklist-item"><input type="checkbox"> 2 sachets électrolytes</label>
+              <label class="checklist-item"><input type="checkbox"> Soupe miso sans gluten x2</label>
+              <label class="checklist-item"><input type="checkbox"> Fromage portions x2</label>
+              <label class="checklist-item"><input type="checkbox"> Bananes x2</label>
+              <label class="checklist-item"><input type="checkbox"> Gâteau de riz x2</label>
+              <label class="checklist-item"><input type="checkbox"> Beurre d'amande sachets x2</label>
+              <label class="checklist-item"><input type="checkbox"> Bonbons caféine x3</label>
+            </div>
+            <div class="checklist-category">
+              <div class="checklist-cat-title">👕 Vêtements</div>
+              <label class="checklist-item"><input type="checkbox"> T-shirt thermique propre</label>
+              <label class="checklist-item"><input type="checkbox"> Chaussettes mérinos neuves</label>
+              <label class="checklist-item"><input type="checkbox"> Lunettes de soleil</label>
+              <label class="checklist-item"><input type="checkbox"> Vérifier Gore-Tex</label>
+              <label class="checklist-item"><input type="checkbox"> Vérifier gants + bonnet</label>
+              <div class="checklist-cat-title" style="margin-top:1.2rem;">🏁 Sac Arrivée (séparé)</div>
+              <label class="checklist-item"><input type="checkbox"> T-shirt propre club</label>
+              <label class="checklist-item"><input type="checkbox"> Short propre</label>
+              <label class="checklist-item"><input type="checkbox"> Casquette propre</label>
+              <label class="checklist-item"><input type="checkbox"> Chaussures légères post-course</label>
+            </div>
+            <div class="checklist-category">
+              <div class="checklist-cat-title">🔋 Électronique</div>
+              <label class="checklist-item"><input type="checkbox"> Powerbank 10 000 mAh (100%)</label>
+              <label class="checklist-item"><input type="checkbox"> Câble USB-C</label>
+              <label class="checklist-item"><input type="checkbox"> Piles AAA neuves x6</label>
+              <label class="checklist-item"><input type="checkbox"> Téléphone chargé</label>
+              <label class="checklist-item"><input type="checkbox"> Playlist "FINISH TDS" prête</label>
+              <label class="checklist-item"><input type="checkbox"> Écouteurs rechargés</label>
+            </div>
+            <div class="checklist-category">
+              <div class="checklist-cat-title">🩺 Pharmacie</div>
+              <label class="checklist-item"><input type="checkbox"> Compeed x6</label>
+              <label class="checklist-item"><input type="checkbox"> Aiguille stérile x2</label>
+              <label class="checklist-item"><input type="checkbox"> Spray musculaire</label>
+              <label class="checklist-item"><input type="checkbox"> Paracétamol (sans gluten) x2</label>
+              <label class="checklist-item"><input type="checkbox"> Sérum physiologique x2</label>
+              <label class="checklist-item"><input type="checkbox"> Crème récupération post-arrivée</label>
+            </div>
+          </div>
+          <div class="alert-box" style="margin:0;border-radius:0;border:none;border-top:1px solid rgba(220,100,100,0.15);">
+            <p>🏷️ <strong>Étiquette obligatoire :</strong> Nom + Dossard + "LES CONTAMINES KM 125"</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUB-TAB : RÉCUPÉRATION -->
+      <div class="sub-tab-content" id="accompagnants-recuperation">
+        <div class="highlight-box">
+          <p>💡 <strong>Enzo a proposé 10kg de glace pour un bain froid post-course.</strong> Excellente idée pour réduire l'inflammation musculaire. À organiser à l'hôtel ou au logement.</p>
+        </div>
+
+        <div class="info-rows" style="margin-bottom:3rem;">
+          <div class="info-row">
+            <span class="info-label">Récupération immédiate</span>
+            <span class="info-value">Accueillir à la ligne d'arrivée. <strong>Tenue sèche</strong> du sac arrivée. <strong>Boisson sucrée</strong> sans gluten + <strong>bouillon chaud</strong>.</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Alimentation</span>
+            <span class="info-value"><strong>Repas complet digeste</strong> — riz, poulet, patate douce. Tout sans gluten. Glucides + protéines prioritaires.</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Soins physiques</span>
+            <span class="info-value"><strong>Massage léger</strong> des jambes. <strong>Bottes de compression</strong> si disponibles. <strong>Bain froid + glace</strong> pour réduire inflammation.</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Hydratation</span>
+            <span class="info-value">Boire <strong>régulièrement</strong> toutes les 30 min. Eau + électrolytes. Minimum 2L dans les 4 premières heures post-course.</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Logistique</span>
+            <span class="info-value">Gérer les sacs, retour logement, récupération du dossard. Vivien sera en état de grande fatigue — <strong>tout prendre en charge.</strong></span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Mercredi–Jeudi</span>
+            <span class="info-value">Vivien dans le coma 😅. Enzo travaille. <strong>Massage si possible.</strong> Repas légers et réguliers. Sommeil prioritaire.</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Vendredi 28 Août</span>
+            <span class="info-value">Enzo off. <strong>Célébration de la finition TDS 🎉</strong>. Sortie ensemble possible si Vivien récupérée.</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">UTMB en spectateurs</span>
+            <span class="info-value">Vendredi 28 → Dimanche 30. <strong>Regarder l'UTMB ensemble.</strong> Ambiance village. Départ Enzo dimanche 30.</span>
+          </div>
+        </div>
+
+        <div class="cards-grid">
+          <div class="card">
+            <span class="card-icon">🧊</span>
+            <div class="card-title">Bain de glace</div>
+            <p class="card-text">10kg de glace dans une baignoire. 10-15 min d'immersion des jambes. Température cible 10-15°C. Réduction inflammation maximale.</p>
+          </div>
+          <div class="card">
+            <span class="card-icon">🩹</span>
+            <div class="card-title">Soins des pieds</div>
+            <p class="card-text">Traiter les ampoules avec aiguille stérile. Désinfecter. Laisser aérer. Crème réparatrice. Chaussures légères uniquement.</p>
+          </div>
+          <div class="card">
+            <span class="card-icon">💊</span>
+            <div class="card-title">Suppléments</div>
+            <p class="card-text">Magnésium pour crampes résiduelles. Vitamine C antioxydant. Protéines whey sans gluten pour réparation musculaire.</p>
+          </div>
+          <div class="card">
+            <span class="card-icon">😴</span>
+            <div class="card-title">Sommeil</div>
+            <p class="card-text">Priorité absolue. Obscurité totale. Pas de réveil forcé. Le corps récupère principalement pendant le sommeil profond.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =============================================
+       PAGE : COURSE
+  ============================================= -->
+  <div class="page" id="page-course">
+    <div class="page-header reveal">
+      <p class="section-number">03 — Course</p>
+      <h2>La TDS 2026</h2>
+    </div>
+    <div class="page-content">
+      <div class="sub-tabs">
+        <button class="sub-tab-btn active" onclick="switchSubTab(event,'course','infos')">Infos Générales</button>
+        <button class="sub-tab-btn" onclick="switchSubTab(event,'course','parcours')">Parcours & Profil</button>
+        <button class="sub-tab-btn" onclick="switchSubTab(event,'course','reconnaissance')">Reconnaissance</button>
+        <button class="sub-tab-btn" onclick="switchSubTab(event,'course','zones-critiques')">Zones Critiques</button>
+      </div>
+
+      <!-- SUB-TAB : INFOS GÉNÉRALES -->
+      <div class="sub-tab-content active" id="course-infos">
+        <div class="two-col" style="margin-bottom:3rem;">
+          <div>
+            <h3>Informations Clés</h3>
+            <div class="info-rows">
+              <div class="info-row"><span class="info-label">Nom complet</span><span class="info-value"><strong>Sur les Traces des Ducs de Savoie</strong></span></div>
+              <div class="info-row"><span class="info-label">Date</span><span class="info-value"><strong>Lundi 24 Août 2026</strong> — Départ 23h50</span></div>
+              <div class="info-row"><span class="info-label">Itinéraire</span><span class="info-value"><strong>Courmayeur (IT) → Chamonix (FR)</strong></span></div>
+              <div class="info-row"><span class="info-label">Distance</span><span class="info-value"><strong>~145-152 km</strong></span></div>
+              <div class="info-row"><span class="info-label">D+ total</span><span class="info-value"><strong>~9 300 m</strong></span></div>
+              <div class="info-row"><span class="info-label">D- total</span><span class="info-value"><strong>~9 700 m</strong></span></div>
+			  <div class="info-row"><span class="info-label">Objectif</span><span class="info-value"><strong>29h55</strong></span></div>
+              <div class="info-row"><span class="info-label">Temps limite</span><span class="info-value"><strong>44h55</strong></span></div>
+              <div class="info-row"><span class="info-label">Altitude max</span><span class="info-value"><strong>~2 800m</strong> — Passeur de Pralognan</span></div>
+              <div class="info-row"><span class="info-label">Catégorie</span><span class="info-value">Running Stones — UTMB World Series</span></div>
+              <div class="info-row"><span class="info-label">Points UTMB</span><span class="info-value">6 points</span></div>
+            </div>
+          </div>
+          <div>
+            <h3>Checkpoints Officiels</h3>
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr><th>Checkpoint</th><th>Km</th><th>D+</th><th>Heure</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>🚀 Courmayeur</td><td>0</td><td>0m</td><td>23h50</td></tr>
+                  <tr><td>Lac Combal</td><td>16</td><td>1 450m</td><td>~02h50</td></tr>
+                  <tr><td>La Thuile</td><td>36</td><td>2 900m</td><td>~06h50</td></tr>
+                  <tr><td>Séez</td><td>47</td><td>3 450m</td><td>~08h50</td></tr>
+                  <tr class="row-highlight"><td>🎒 Bourg-St-Maurice</td><td>51</td><td>3 600m</td><td>~09h50</td></tr>
+                  <tr><td>⚠️ Passeur Pralognan</td><td>61</td><td>4 850m</td><td>~12h50</td></tr>
+                  <tr><td>Cormet de Roselend</td><td>65</td><td>5 150m</td><td>~13h50</td></tr>
+                  <tr><td>La Gittaz</td><td>73</td><td>5 500m</td><td>~15h50</td></tr>
+                  <tr><td>Pas d'Outray</td><td>83</td><td>6 300m</td><td>~17h50</td></tr>
+                  <tr class="row-highlight"><td>🎒 Beaufort</td><td>92</td><td>6 500m</td><td>~19h50</td></tr>
+                  <tr><td>Hauteluce</td><td>101</td><td>7 100m</td><td>~21h50</td></tr>
+                  <tr><td>Barrage Girotte</td><td>106</td><td>7 900m</td><td>~23h50</td></tr>
+                  <tr><td>Le Signal</td><td>117</td><td>8 300m</td><td>~01h50</td></tr>
+                  <tr class="row-highlight"><td>🎒 Les Contamines</td><td>125</td><td>8 600m</td><td>~03h50</td></tr>
+                  <tr><td>Les Houches</td><td>141</td><td>9 100m</td><td>~07h50</td></tr>
+                  <tr><td>🏁 Chamonix</td><td>152</td><td>9 300m</td><td>~10h50</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUB-TAB : PARCOURS -->
+      <div class="sub-tab-content" id="course-parcours">
+        <div class="highlight-box">
+          <p>🗺️ Le parcours traverse 3 pays (Italie, France, Suisse) et plusieurs massifs alpins. Chaque section a son propre caractère et ses propres défis.</p>
+        </div>
+        <div class="cards-grid">
+          <div class="card">
+            <span class="card-icon">🏔️</span>
+            <div class="card-title">Section 1 — Courmayeur → La Thuile</div>
+            <p class="card-text">Km 0-36 · +2900m · 7h. Départ nocturne. Montée Checrouit, Arête Mont-Favre, Lac Combal, Col Chavannes. Section engagée dès le départ.</p>
+          </div>
+          <div class="card">
+            <span class="card-icon">⚠️</span>
+            <div class="card-title">Section 2 — La Thuile → Roselend</div>
+            <p class="card-text">Km 36-65 · +2250m · 7h. Séez, BSM, Fort de la Platte, Passeur de Pralognan (cordes fixes ⚠️), Cormet de Roselend. Section la plus technique.</p>
+          </div>
+          <div class="card">
+            <span class="card-icon">☀️</span>
+            <div class="card-title">Section 3 — Roselend → Beaufort</div>
+            <p class="card-text">Km 65-92 · +1350m · 6h. Col de la Sauce, La Gittaz, Pas d'Outray, descente Beaufort. Pleine journée. Chaleur à gérer.</p>
+          </div>
+          <div class="card">
+            <span class="card-icon">🌑</span>
+            <div class="card-title">Section 4 — Beaufort → Contamines</div>
+            <p class="card-text">Km 92-125 · +2100m · 8h. Hauteluce, Barrage Girotte, Le Signal. 2ème nuit complète. Section la plus froide et la plus mentale.</p>
+          </div>
+          <div class="card">
+            <span class="card-icon">🌅</span>
+            <div class="card-title">Section 5 — Contamines → Chamonix</div>
+            <p class="card-text">Km 125-152 · +700m · 7h. Col de Tricot, Les Houches, arrivée Chamonix. Aube puis plein soleil. Dernier effort — tout donner.</p>
+          </div>
+          <div class="card">
+            <span class="card-icon">🏁</span>
+            <div class="card-title">Arrivée Chamonix</div>
+            <p class="card-text">Centre-ville de Chamonix. Arrivée estimée ~10h50 le Mercredi 26 Août. Plein soleil. Ambiance UTMB Week. Moment inoubliable.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUB-TAB : RECONNAISSANCE -->
+      <div class="sub-tab-content" id="course-reconnaissance">
+        <div class="highlight-box">
+          <p>📅 <strong>Reconnaissance prévue : 24-25-26 Juillet 2026</strong> — Depuis Paris (encore en phase préparation Paris). Transport : train Paris → BSM ou voiture.</p>
+        </div>
+        <div class="three-col">
+          <div class="card" style="border:1px solid rgba(200,169,110,0.2);">
+            <span class="card-icon">1️⃣</span>
+            <div class="card-title">Jour 1 — 24 Juillet</div>
+            <p class="card-text"><strong>Courmayeur → La Thuile</strong><br>36 km · +2 900m · ~8h<br>Départ 05h00 depuis Courmayeur. Simulation conditions nocturnes. Mémoriser Checrouit, Mont-Favre, Combal, Col Chavannes.</p>
+          </div>
+          <div class="card" style="border:1px solid rgba(200,169,110,0.2);">
+            <span class="card-icon">2️⃣</span>
+            <div class="card-title">Jour 2 — 25 Juillet</div>
+            <p class="card-text"><strong>BSM → Beaufort</strong><br>41 km · +2 900m · ~9h<br>⭐⭐⭐ Section la plus critique. Passeur de Pralognan avec cordes fixes à pratiquer 2-3 fois. Repérer Roselend, La Gittaz, Pas d'Outray.</p>
+          </div>
+          <div class="card" style="border:1px solid rgba(200,169,110,0.2);">
+            <span class="card-icon">3️⃣</span>
+            <div class="card-title">Jour 3 — 26 Juillet</div>
+            <p class="card-text"><strong>Hauteluce → Contamines (+Col Tricot)</strong><br>44 km · +2 000m · ~7-9h<br>Barrage Girotte, Le Signal — terrain technique nocturne à mémoriser. Col de Tricot en bonus si jambes OK.</p>
+          </div>
+        </div>
+        <div class="alert-box">
+          <p>⚠️ <strong>Note logistique :</strong> Reconnaissance depuis Paris (20/07-08/08). Option Train Paris → Bourg-St-Maurice (3h30 TGV) + location voiture sur place. Budget estimé : 300-400€.</p>
+        </div>
+      </div>
+
+      <!-- SUB-TAB : ZONES CRITIQUES -->
+      <div class="sub-tab-content" id="course-zones-critiques">
+        <div class="table-wrapper" style="margin-bottom:3rem;">
+          <table>
+            <thead>
+              <tr><th>Zone</th><th>Km</th><th>Risque</th><th>Action</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>⚠️ Passeur de Pralognan</td><td>61</td><td>Cordes fixes — chute possible</td><td>Ralentir · Gants légers · Les deux mains</td></tr>
+              <tr><td>🌡️ BSM → Roselend</td><td>50-65</td><td>Chaleur journée + grosse montée</td><td>Nutrition max au ravito BSM · S'hydrater ++</td></tr>
+              <tr><td>😴 La Gittaz → Beaufort</td><td>73-92</td><td>Fatigue H+16 à H+20</td><td>Maintenir rythme · Pas de long arrêt</td></tr>
+              <tr><td>🥶 Girotte → Le Signal</td><td>106-117</td><td>2ème nuit · Froid · Fatigue max</td><td>Caféine · Vêtements chauds · Mental ++</td></tr>
+              <tr><td>🌑 Contamines → Tricot</td><td>125-133</td><td>Dernière grosse montée · 4h du matin</td><td>Tenir mentalement · 27 km restants !</td></tr>
+              <tr><td>🚀 Départ Courmayeur</td><td>0-10</td><td>Trop vite à l'adrénaline</td><td>Rester conservateur · Zone 2 strict</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="cards-grid">
+          <div class="card">
+            <span class="card-icon">🌑</span>
+            <div class="card-title">Gestion Nuit 1</div>
+            <p class="card-text">23h50 → 06h00. Adrenaline du départ à contrôler. Effort conservateur. Manger toutes les 45 min même sans faim. Lampe frontale vérifiée.</p>
+          </div>
+          <div class="card">
+            <span class="card-icon">☀️</span>
+            <div class="card-title">Gestion Journée</div>
+            <p class="card-text">06h00 → 20h00. Chaleur entre 12h et 17h. Crème solaire. Casquette. Hydratation ++ dans les descentes. Profiter de l'énergie du jour.</p>
+          </div>
+          <div class="card">
+            <span class="card-icon">🌑</span>
+            <div class="card-title">Gestion Nuit 2</div>
+            <p class="card-text">20h00 → 06h30. La plus difficile. Température 5-8°C en altitude. Caféine stratégique. Musique. Penser : Chamonix dans quelques heures.</p>
+          </div>
+          <div class="card">
+            <span class="card-icon">🏁</span>
+            <div class="card-title">Finish</div>
+            <p class="card-text">06h30 → 10h50. Soleil levant. Chamonix qui se rapproche. Les Houches = 8 km restants. Col de Tricot = le dernier gros effort. Tout donner.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =============================================
+       PAGE : RENSEIGNEMENTS
+  ============================================= -->
+  <div class="page" id="page-renseignements">
+    <div class="page-header reveal">
+      <p class="section-number">04 — Renseignements</p>
+      <h2>Informations Pratiques</h2>
+    </div>
+    <div class="page-content">
+      <div class="sub-tabs">
+        <button class="sub-tab-btn active" onclick="switchSubTab(event,'renseignements','contacts')">Contacts & Urgences</button>
+        <button class="sub-tab-btn" onclick="switchSubTab(event,'renseignements','logistique')">Logistique & Transport</button>
+        <button class="sub-tab-btn" onclick="switchSubTab(event,'renseignements','liens')">Liens Utiles</button>
+      </div>
+
+      <!-- SUB-TAB : CONTACTS -->
+      <div class="sub-tab-content active" id="renseignements-contacts">
+        <div class="alert-box">
+          <p>🚨 <strong>Urgences montagne : 15 (SAMU) · 18 (Pompiers) · 112 (Européen) · 17 (Police)</strong></p>
+        </div>
+        <div class="info-rows" style="margin-bottom:3rem;">
+          <div class="info-row">
+            <span class="info-label">Organisation TDS</span>
+            <span class="info-value"><strong>UTMB Group</strong> — montblanc.utmb.world · +33 (0)4 50 53 07 97</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Accompagnant</span>
+            <span class="info-value"><strong>Enzo Garry</strong> — +33 6 26 71 45 32 </span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Covoiturage Victor</span>
+            <span class="info-value"><strong>Victor</strong> — +33 6 45 08 50 70 — voiture disponible pour BSM et Contamines</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Hôpital Chamonix</span>
+            <span class="info-value">Centre Hospitalier de la Vallée de l'Arve — 74 Av. de la Plaine · +33 (0)4 50 53 84 00</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">PGHM Chamonix</span>
+            <span class="info-value">Peloton de Gendarmerie de Haute Montagne — +33 (0)4 50 53 16 89</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Secours Italie</span>
+            <span class="info-value">Soccorso Alpino — 118 depuis l'Italie (Courmayeur / Val d'Aoste)</span>
+          </div>
+        </div>
+        <div class="cards-grid">
+          <div class="card">
+            <span class="card-icon">📱</span>
+            <div class="card-title">Numéros à sauvegarder</div>
+            <p class="card-text">Enregistrer avant le départ : Organisation TDS · Enzo · Victor · PGHM · Hôpital Chamonix · Un proche en France (genre la daronne).</p>
+          </div>
+          <div class="card">
+            <span class="card-icon">🗺️</span>
+            <div class="card-title">GPX & Navigation</div>
+                        <p class="card-text">Télécharger le GPX officiel sur montblanc.utmb.world. Charger sur montre ET téléphone en mode hors-ligne. App Komoot ou Trail Forks recommandée.</p>
+          </div>
+          <div class="card">
+            <span class="card-icon">🏥</span>
+            <div class="card-title">En cas de problème</div>
+            <p class="card-text">Prévenir le bénévole le plus proche. Ne jamais abandonner seul. Rester sur le balisage. Appeler le 112 si urgence vitale.</p>
+          </div>
+          <div class="card">
+            <span class="card-icon">🎒</span>
+            <div class="card-title">Abandon</div>
+            <p class="card-text">En cas d'abandon : prévenir l'organisation immédiatement. Rester au dernier checkpoint. Attendre la prise en charge officielle.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUB-TAB : LOGISTIQUE -->
+      <div class="sub-tab-content" id="renseignements-logistique">
+        <div class="two-col" style="margin-bottom:3rem;">
+          <div>
+            <h3>Hébergement & Base</h3>
+            <div class="info-rows">
+              <div class="info-row">
+                <span class="info-label">Base Enzo</span>
+                <span class="info-value"><strong>Saint-Gervais-les-Bains</strong> — position centrale entre tous les ravitos</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Retrait dossard</span>
+                <span class="info-value"><strong>Dimanche 23 Août — 18h00</strong> — Village UTMB Chamonix</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Dépôt drop bags</span>
+                <span class="info-value">Avant le départ le lundi 24 Août — horaires à confirmer sur site officiel</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Départ bus Courmayeur</span>
+                <span class="info-value">Navettes UTMB Chamonix → Courmayeur — à réserver sur montblanc.utmb.world</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Tunnel Mont-Blanc</span>
+                <span class="info-value">Chamonix → Courmayeur : ~40 min · Tarif ~45€ aller-retour</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h3>Navettes Officielles</h3>
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr><th>Trajet</th><th>Disponible</th><th>Prix</th><th>Action</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Chamonix → Courmayeur</td>
+                    <td>✅ Oui</td>
+                    <td>~62€</td>
+                    <td><span class="badge badge-blue">À réserver</span></td>
+                  </tr>
+                  <tr>
+                    <td>Chamonix → Beaufort</td>
+                    <td>✅ Oui</td>
+                    <td>Inclus</td>
+                    <td><span class="badge badge-green">Confirmé</span></td>
+                  </tr>
+                  <tr>
+                    <td>St-Gervais → BSM</td>
+                    <td>❌ Non</td>
+                    <td>—</td>
+                    <td><span class="badge badge-red">Covoiturage Victor</span></td>
+                  </tr>
+                  <tr>
+                    <td>St-Gervais → Contamines</td>
+                    <td>❌ Non</td>
+                    <td>—</td>
+                    <td><span class="badge badge-red">Stop / covoiturage</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="highlight-box" style="margin-top:1.5rem;">
+              <p>💡 Navette officielle 62€ non retenue car utilisable pour 1 seul trajet. Victor (voiture) + stop = solution retenue.</p>
+            </div>
+          </div>
+        </div>
+
+        <h3>Calendrier Logistique Complet</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr><th>Date</th><th>Événement</th><th>Qui</th><th>Action requise</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>20 Juillet</td><td>Début prépa Paris</td><td>Vivien</td><td>Démarrer plan entraînement</td></tr>
+              <tr><td>24-26 Juillet</td><td>Reconnaissance TDS</td><td>Vivien</td><td>Train Paris → BSM · Location voiture</td></tr>
+              <tr><td>8 Août</td><td>Départ Chamonix</td><td>Vivien</td><td>Arrivée Chamonix · Début prépa montagne</td></tr>
+              <tr><td>15 Août</td><td>Simulation TDS 6-7h</td><td>Vivien</td><td>Test nutrition complète</td></tr>
+              <tr class="row-highlight"><td>22 Août (matin)</td><td>Arrivée Enzo</td><td>Enzo</td><td>Vol Lux → Genève · Bus → Chamonix</td></tr>
+              <tr><td>22 Août (après-midi)</td><td>Mini rando ensemble</td><td>Vivien + Enzo</td><td>10km max · Repos</td></tr>
+              <tr class="row-highlight"><td>23 Août (journée)</td><td>Préparation drop bags</td><td>Vivien + Enzo</td><td>3 sacs complets + étiquettes</td></tr>
+              <tr><td>23 Août 18h00</td><td>Retrait dossard</td><td>Vivien + Enzo</td><td>Village UTMB Chamonix</td></tr>
+              <tr><td>24 Août</td><td>Repos total</td><td>Vivien</td><td>Enzo travaille · Dernier repas 17h30</td></tr>
+              <tr><td>25 Août avant départ</td><td>Dépôt drop bags</td><td>Enzo</td><td>Déposer les 3 sacs aux points officiels</td></tr>
+              <tr class="row-highlight"><td>25 Août 23h50</td><td>🚀 DÉPART TDS</td><td>Vivien</td><td>Courmayeur · Lampe frontale · Bidons pleins</td></tr>
+              <tr class="row-highlight"><td>26 Août ~09h50</td><td>🎒 Ravito BSM</td><td>Enzo + Victor</td><td>Covoiturage · Drop Bag 1 · 20 min</td></tr>
+              <tr class="row-highlight"><td>26 Août ~19h50</td><td>🎒 Ravito Beaufort</td><td>Enzo</td><td>Navette · Drop Bag 2 · Vêtements nuit</td></tr>
+              <tr class="row-highlight"><td>27 Août ~03h50</td><td>🎒 Ravito Contamines</td><td>Enzo</td><td>Stop/covoiturage · Drop Bag 3 · Mental</td></tr>
+              <tr class="row-highlight"><td>27 Août ~10h50</td><td>🏁 ARRIVÉE Chamonix</td><td>Enzo</td><td>Ligne d'arrivée · Tenue · Photos · Récup</td></tr>
+              <tr><td>27-28 Août</td><td>Récupération</td><td>Vivien + Enzo</td><td>Coma · Massage · Bain froid</td></tr>
+              <tr><td>28-30 Août</td><td>UTMB spectateurs</td><td>Vivien + Enzo</td><td>Village · Course · Ambiance</td></tr>
+              <tr><td>30 Août</td><td>Départ Enzo</td><td>Enzo</td><td>Retour Luxembourg</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- SUB-TAB : LIENS UTILES -->
+      <div class="sub-tab-content" id="renseignements-liens">
+        <div class="cards-grid">
+          <div class="card">
+            <span class="card-icon">🌐</span>
+            <div class="card-title">Site Officiel TDS</div>
+            <p class="card-text"><a href="https://montblanc.utmb.world/fr/races/tds" target="_blank" style="color:#c8a96e;">montblanc.utmb.world/fr/races/tds</a><br>Règlement · Livret coureur · Carte GPX · Navettes</p>
+          </div>
+          <div class="card">
+            <span class="card-icon">🗺️</span>
+            <div class="card-title">Trace GPX Officielle</div>
+            <p class="card-text">Télécharger sur le site officiel UTMB. Charger sur Garmin / Suunto / COROS avant le départ. Backup sur téléphone.</p>
+          </div>
+          <div class="card">
+            <span class="card-icon">📱</span>
+            <div class="card-title">Applications Utiles</div>
+            <p class="card-text"><strong>Komoot</strong> — navigation hors ligne<br><strong>Météo-France</strong> — météo montagne fiable<br><strong>Strava</strong> — suivi entraînement<br><strong>Trail Forks</strong> — sentiers</p>
+          </div>
+          <div class="card">
+            <span class="card-icon">🚌</span>
+            <div class="card-title">Navettes UTMB</div>
+            <p class="card-text">Réservation navettes officielles sur le site UTMB. Chamonix → Courmayeur (départ) · Retours depuis checkpoints. À réserver tôt.</p>
+          </div>
+          <div class="card">
+            <span class="card-icon">🏨</span>
+            <div class="card-title">Hébergement</div>
+            <p class="card-text">Saint-Gervais : base stratégique. Booking.com · Airbnb · Camping sites. Réserver très tôt — UTMB Week complet en août.</p>
+          </div>
+          <div class="card">
+            <span class="card-icon">🌦️</span>
+            <div class="card-title">Météo Montagne</div>
+            <p class="card-text"><a href="https://www.meteofrance.com" target="_blank" style="color:#c8a96e;">meteofrance.com</a> — Bulletins montagne J-3. Vérifier chaque soir pendant la course via Enzo.</p>
+          </div>
+        </div>
+
+        <div class="highlight-box" style="margin-top:2rem;">
+          <p>📋 <strong>Documents à préparer avant le départ :</strong> Dossard imprimé · Livret coureur · Carte d'identité / passeport · Carte Vitale · Assurance rapatriement · Numéros d'urgence sauvegardés.</p>
+        </div>
+
+        <div class="alert-box">
+          <p>⚠️ <strong>Gluten :</strong> Vérifier les ravitaillements officiels TDS pour les options sans gluten. Prévoir systématiquement sa propre nutrition. Ne jamais compter uniquement sur les ravitos.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =============================================
+       FOOTER
+  ============================================= -->
+  <footer>
+    <div class="footer-logo">TDS 2026 · Vivien</div>
+    <div class="footer-links">
+      <a onclick="showPage('coureurs')">Coureurs</a>
+      <a onclick="showPage('accompagnants')">Accompagnants</a>
+      <a onclick="showPage('course')">Course</a>
+      <a onclick="showPage('renseignements')">Renseignements</a>
+      <a href="https://montblanc.utmb.world/fr/races/tds" target="_blank">Site Officiel ↗</a>
+    </div>
+  </footer>
+
+  <!-- =============================================
+       JAVASCRIPT
+  ============================================= -->
+  <script>
+    /* =============================================
+       ROUTING — NAVIGATION ENTRE PAGES
+    ============================================= */
+    function showPage(pageId) {
+      // Masquer toutes les pages
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+
+      // Afficher la page cible
+      const target = document.getElementById('page-' + pageId);
+      if (target) {
+        target.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      // Mettre à jour les liens nav
+      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+      const activeNav = document.getElementById('nav-' + pageId);
+      if (activeNav) activeNav.classList.add('active');
+
+      // Déclencher les animations reveal
+      setTimeout(triggerReveal, 100);
+    }
+
+    /* =============================================
+       SUB-TABS — ONGLETS INTERNES
+    ============================================= */
+    function switchSubTab(event, section, tabId) {
+      // Désactiver tous les boutons de la section
+      const parentTabs = event.target.closest('.sub-tabs');
+      parentTabs.querySelectorAll('.sub-tab-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      // Masquer tous les contenus de la section
+      const pageContent = event.target.closest('.page-content');
+      pageContent.querySelectorAll('.sub-tab-content').forEach(c => c.classList.remove('active'));
+
+      // Afficher le contenu cible
+      const targetContent = document.getElementById(section + '-' + tabId);
+      if (targetContent) targetContent.classList.add('active');
+    }
+
+    /* =============================================
+       REVEAL ON SCROLL
+    ============================================= */
+    function triggerReveal() {
+      const reveals = document.querySelectorAll('.reveal');
+      reveals.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.92) {
+          el.classList.add('visible');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', triggerReveal);
+    triggerReveal();
+
+    /* =============================================
+       NAVBAR SCROLL EFFECT
+    ============================================= */
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('navbar');
+      if (window.scrollY > 60) {
+        nav.style.padding = '1rem 4rem';
+      } else {
+        nav.style.padding = '1.4rem 4rem';
+      }
+    });
+
+    /* =============================================
+       HASH ROUTING (support URL directe)
+    ============================================= */
+    function handleHash() {
+      const hash = window.location.hash.replace('#', '');
+      const validPages = ['home', 'coureurs', 'accompagnants', 'course', 'renseignements'];
+      if (hash && validPages.includes(hash)) {
+        showPage(hash);
+      }
+    }
+
+    window.addEventListener('hashchange', handleHash);
+
+    // Init au chargement
+    document.addEventListener('DOMContentLoaded', () => {
+      handleHash();
+      triggerReveal();
+    });
+  </script>
+
+</body>
+</html>
+
+
+
+  
