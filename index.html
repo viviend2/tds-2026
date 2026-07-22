@@ -1069,7 +1069,23 @@
       </div>
     </section>
   </div>
+	
+<!-- ═══════════════════════════════════
+     NAVIGATION COUREURS
+═══════════════════════════════════════ -->
+<div class="runners-nav">
+  <button class="runner-tab vivien active" onclick="switchRunner('vivien')">
+    🏔️ Vivien
+  </button>
+  <button class="runner-tab thisbe" onclick="switchRunner('thisbe')">
+    🌸 Thisbé
+  </button>
+</div>
 
+<!-- ═══════════════════════════════════
+     PANNEAU VIVIEN — HTML existant intact
+═══════════════════════════════════════ -->
+<div class="runner-panel active" id="panel-vivien">
   <!-- =============================================
        PAGE : COUREURS
   ============================================= -->
@@ -1935,7 +1951,456 @@
       </div>
     </div>
   </div>
+<!-- ═══════════════════════════════════════════════════════════════
+     PANNEAU THISBÉ
+═══════════════════════════════════════════════════════════════ -->
+<div class="runner-panel thisbe-theme" id="panel-thisbe">
 
+  <span class="runner-badge thisbe">🌸 Thisbé — TDS 2026</span>
+  <span class="veggie-note">🌿 Végétarienne — Vérifier chaque ravito · Toujours avoir sa propre nutrition</span>
+
+  <!-- ══════════════════════════════════════
+       SECTION 1 — PLAN DE COURSE
+  ══════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-number">01</div>
+      <div>
+        <h2>Plan de Course</h2>
+        <p class="section-sub">Thisbé · Objectif 38h55 · Départ Lundi 23h50</p>
+      </div>
+    </div>
+
+    <div class="crew-note" style="margin-bottom:1.5rem;">
+      📍 Contact Gabriel : Hébergement Les Houches — base stratégique pour BSM et Contamines.
+      3 bases vie officielles + 1 arrêt optionnel Les Houches. Stop max 20 min.
+      Gabriel apporte le drop bag, recharge l'électronique, prépare le repas végétarien chaud et assure le support émotionnel.
+    </div>
+
+    <div class="table-container">
+      <table class="checkpoints-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Lieu</th>
+            <th>Km</th>
+            <th>Heure estimée</th>
+            <th>D+ cumulé</th>
+            <th>Type</th>
+            <th>Actions Gabriel</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="checkpoint-row base-vie">
+            <td>1</td>
+            <td>Bourg-St-Maurice</td>
+            <td>51</td>
+            <td><strong>~09h50</strong></td>
+            <td>3 600m</td>
+            <td><span class="badge">Base Vie</span></td>
+            <td>Drop Bag 1 · Repas végétarien chaud · Recharge élec · Rechange · 20 min</td>
+          </tr>
+          <tr class="checkpoint-row base-vie">
+            <td>2</td>
+            <td>Beaufort</td>
+            <td>92</td>
+            <td><strong>~22h50</strong></td>
+            <td>6 500m</td>
+            <td><span class="badge">Base Vie</span></td>
+            <td>Drop Bag 2 · Vêtements nuit · Lampes · Repas végé · 20 min</td>
+          </tr>
+          <tr class="checkpoint-row base-vie">
+            <td>3</td>
+            <td>Les Contamines</td>
+            <td>125</td>
+            <td><strong>~08h50</strong></td>
+            <td>8 600m</td>
+            <td><span class="badge">Base Vie</span></td>
+            <td>Drop Bag 3 · Recharge · Soutien mental · Sac arrivée · 20 min</td>
+          </tr>
+          <tr class="checkpoint-row optional">
+            <td>(Opt)</td>
+            <td>Les Houches</td>
+            <td>141</td>
+            <td><strong>~12h50</strong></td>
+            <td>9 100m</td>
+            <td><span class="badge optional">Optionnel</span></td>
+            <td>Gabriel à domicile (Les Houches) — support rapide si besoin</td>
+          </tr>
+          <tr class="checkpoint-row finish">
+            <td>🏁</td>
+            <td><strong>Chamonix — Arrivée</strong></td>
+            <td>152</td>
+            <td><strong>~14h45</strong></td>
+            <td>9 300m</td>
+            <td><span class="badge finish">Arrivée</span></td>
+            <td>Tenue arrivée · Repas végétarien · Photos · Récupération immédiate</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Actions détaillées -->
+    <h3 style="margin-top:2rem; margin-bottom:1rem;">Actions Détaillées à Chaque Point</h3>
+
+    <div class="base-vie-actions">
+
+      <div class="action-block">
+        <h4>🎒 Bourg-St-Maurice — 09h50</h4>
+        <ul class="checklist">
+          <li>☐ Remettre Drop Bag 1</li>
+          <li>☐ Préparer repas végétarien chaud (soupe, riz, légumes...)</li>
+          <li>☐ Recharger montre + téléphone</li>
+          <li>☐ Vérifier pieds avec Thisbé</li>
+          <li>☐ Remplir bidons</li>
+          <li>☐ Encourager — 50 km déjà faits !</li>
+        </ul>
+      </div>
+
+      <div class="action-block">
+        <h4>🎒 Beaufort — 22h50</h4>
+        <ul class="checklist">
+          <li>☐ Remettre Drop Bag 2</li>
+          <li>☐ Vêtements nuit sortis et prêts</li>
+          <li>☐ Vérifier lampes frontales + piles de secours</li>
+          <li>☐ Repas végétarien chaud + bouillon</li>
+          <li>☐ Recharge électronique</li>
+          <li>☐ 2ème nuit — soutien mental ++</li>
+        </ul>
+      </div>
+
+      <div class="action-block">
+        <h4>🎒 Les Contamines — 08h50</h4>
+        <ul class="checklist">
+          <li>☐ Remettre Drop Bag 3</li>
+          <li>☐ Soupe chaude + solide végétarien</li>
+          <li>☐ Dernière recharge élec</li>
+          <li>☐ Sac arrivée prêt pour Chamonix</li>
+          <li>☐ Rappeler : 27 km restants !</li>
+          <li>☐ Motivation maximale ❤️</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       SECTION 2 — DROP BAGS
+  ══════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-number">02</div>
+      <div>
+        <h2>Drop Bags Thisbé</h2>
+        <p class="section-sub">3 drop bags préparés avec Gabriel le Dimanche 23 Août. Chaque catégorie dans un sac ziploc étiqueté.</p>
+      </div>
+    </div>
+
+    <!-- Drop Bag 1 -->
+    <div class="base-vie-card">
+      <div class="base-vie-header">
+        <span class="base-number">01</span>
+        <div>
+          <h3>Bourg-Saint-Maurice</h3>
+          <p>Km 51 · H+10 · ~09h50 · Mardi 25 Août · ☀️ Plein jour</p>
+        </div>
+        <span class="badge">BASE VIE</span>
+      </div>
+      <div class="drop-bag-categories">
+        <div class="drop-category">🌿 Nutrition végé</div>
+        <div class="drop-category">👕 Vêtements</div>
+        <div class="drop-category">🔋 Électronique</div>
+        <div class="drop-category">🩹 Pharmacie</div>
+      </div>
+      <div class="etiquette-note">
+        🏷️ Étiquette obligatoire : Thisbé + Dossard + "BOURG-ST-MAURICE KM 51"
+      </div>
+    </div>
+
+    <!-- Drop Bag 2 -->
+    <div class="base-vie-card">
+      <div class="base-vie-header">
+        <span class="base-number">02</span>
+        <div>
+          <h3>Beaufort</h3>
+          <p>Km 92 · H+23 · ~22h50 · Mardi 25 Août · 🌙 Nuit — 2ème nuit commence</p>
+        </div>
+        <span class="badge">BASE VIE</span>
+      </div>
+      <div class="drop-bag-categories">
+        <div class="drop-category">🌿 Nutrition végé</div>
+        <div class="drop-category">🧥 Vêtements Nuit</div>
+        <div class="drop-category">🔋 Électronique</div>
+        <div class="drop-category">🩹 Pharmacie</div>
+      </div>
+      <div class="etiquette-note">
+        🏷️ Étiquette obligatoire : Thisbé + Dossard + "BEAUFORT KM 92"
+      </div>
+    </div>
+
+    <!-- Drop Bag 3 -->
+    <div class="base-vie-card">
+      <div class="base-vie-header">
+        <span class="base-number">03</span>
+        <div>
+          <h3>Les Contamines</h3>
+          <p>Km 125 · H+33 · ~08h50 · Mercredi 26 Août · ☀️ Matin — 27 km restants</p>
+        </div>
+        <span class="badge">BASE VIE</span>
+      </div>
+      <div class="drop-bag-categories">
+        <div class="drop-category">🌿 Nutrition végé</div>
+        <div class="drop-category">👕 Vêtements</div>
+        <div class="drop-category">🏁 Sac Arrivée (séparé)</div>
+        <div class="drop-category">🔋 Électronique</div>
+        <div class="drop-category">🩹 Pharmacie</div>
+      </div>
+      <div class="etiquette-note">
+        🏷️ Étiquette obligatoire : Thisbé + Dossard + "LES CONTAMINES KM 125"
+      </div>
+    </div>
+
+    <div class="crew-note" style="margin-top:1rem;">
+      🌿 <strong>Note végétarienne :</strong> Vérifier systématiquement la composition des ravitaillements officiels TDS.
+      Prévoir en autonomie : barres végé, gels, fruits secs, purées, fromage. Ne jamais compter uniquement sur les ravitos.
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       SECTION 3 — LA COURSE TDS
+  ══════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-number">03</div>
+      <div>
+        <h2>La Course</h2>
+        <p class="section-sub">La TDS 2026 — Informations Clés Thisbé</p>
+      </div>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-label">Nom complet</div>
+        <div class="info-value">Sur les Traces des Ducs de Savoie</div>
+      </div>
+      <div class="info-card">
+        <div class="info-label">Date</div>
+        <div class="info-value">Lundi 24 Août 2026 — Départ 23h50</div>
+      </div>
+      <div class="info-card">
+        <div class="info-label">Itinéraire</div>
+        <div class="info-value">Courmayeur (IT) → Chamonix (FR)</div>
+      </div>
+      <div class="info-card">
+        <div class="info-label">Distance</div>
+        <div class="info-value">~145-152 km</div>
+      </div>
+      <div class="info-card">
+        <div class="info-label">D+ total</div>
+        <div class="info-value">~9 300 m</div>
+      </div>
+      <div class="info-card">
+        <div class="info-label">Objectif Thisbé</div>
+        <div class="info-value" style="color:#c471ed; font-weight:800;">38h55</div>
+      </div>
+      <div class="info-card">
+        <div class="info-label">Temps limite</div>
+        <div class="info-value">44h55</div>
+      </div>
+      <div class="info-card">
+        <div class="info-label">Altitude max</div>
+        <div class="info-value">~2 800m — Passeur de Pralognan</div>
+      </div>
+      <div class="info-card">
+        <div class="info-label">Contraintes alim.</div>
+        <div class="info-value">🌿 Végétarienne</div>
+      </div>
+      <div class="info-card">
+        <div class="info-label">Hébergement crew</div>
+        <div class="info-value">Gabriel — Les Houches</div>
+      </div>
+      <div class="info-card">
+        <div class="info-label">Contact logistique</div>
+        <div class="info-value">📞 Gabriel</div>
+      </div>
+      <div class="info-card">
+        <div class="info-label">Points UTMB</div>
+        <div class="info-value">6 points</div>
+      </div>
+    </div>
+
+    <!-- Checkpoints officiels Thisbé -->
+    <h3 style="margin-top:2rem; margin-bottom:1rem;">Checkpoints Officiels — Timing Thisbé</h3>
+    <div class="table-container">
+      <table class="checkpoints-table">
+        <thead>
+          <tr>
+            <th>Checkpoint</th>
+            <th>Km</th>
+            <th>D+</th>
+            <th>Heure Thisbé</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>🚀 Courmayeur</td><td>0</td><td>0m</td><td>23h50</td></tr>
+          <tr><td>Lac Combal</td><td>16</td><td>1 450m</td><td>~03h50</td></tr>
+          <tr><td>La Thuile</td><td>36</td><td>2 900m</td><td>~08h50</td></tr>
+          <tr><td>Séez</td><td>47</td><td>3 450m</td><td>~10h50</td></tr>
+          <tr class="base-vie"><td>🎒 Bourg-St-Maurice</td><td>51</td><td>3 600m</td><td><strong>~09h50</strong></td></tr>
+          <tr><td>⚠️ Passeur Pralognan</td><td>61</td><td>4 850m</td><td>~13h50</td></tr>
+          <tr><td>Cormet de Roselend</td><td>65</td><td>5 150m</td><td>~14h50</td></tr>
+          <tr><td>La Gittaz</td><td>73</td><td>5 500m</td><td>~16h50</td></tr>
+          <tr><td>Pas d'Outray</td><td>83</td><td>6 300m</td><td>~19h50</td></tr>
+          <tr class="base-vie"><td>🎒 Beaufort</td><td>92</td><td>6 500m</td><td><strong>~22h50</strong></td></tr>
+          <tr><td>Hauteluce</td><td>101</td><td>7 100m</td><td>~01h50</td></tr>
+          <tr><td>Barrage Girotte</td><td>106</td><td>7 900m</td><td>~03h50</td></tr>
+          <tr><td>Le Signal</td><td>117</td><td>8 300m</td><td>~06h50</td></tr>
+          <tr class="base-vie"><td>🎒 Les Contamines</td><td>125</td><td>8 600m</td><td><strong>~08h50</strong></td></tr>
+          <tr class="optional"><td>Les Houches (opt)</td><td>141</td><td>9 100m</td><td>~12h50</td></tr>
+          <tr class="finish"><td>🏁 Chamonix</td><td>152</td><td>9 300m</td><td><strong>~14h45</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="crew-note" style="margin-top:1rem;">
+      📅 Reconnaissance prévue : 24-25-26 Juillet 2026 — Mêmes sections que Vivien (Courmayeur→La Thuile · BSM→Beaufort · Hauteluce→Contamines).
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       SECTION 4 — POINTS CRITIQUES
+  ══════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-number">04</div>
+      <div>
+        <h2>Points Critiques</h2>
+        <p class="section-sub">Zones à risque — Thisbé</p>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <table class="risk-table">
+        <thead>
+          <tr>
+            <th>Zone</th>
+            <th>Km</th>
+            <th>Risque</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>⚠️ Passeur de Pralognan</td>
+            <td>61</td>
+            <td>Cordes fixes — chute possible</td>
+            <td>Ralentir · Gants légers · Les deux mains</td>
+          </tr>
+          <tr>
+            <td>🌡️ BSM → Roselend</td>
+            <td>50–65</td>
+            <td>Chaleur journée + grosse montée</td>
+            <td>Nutrition végé max au ravito BSM · S'hydrater ++</td>
+          </tr>
+          <tr>
+            <td>😴 La Gittaz → Beaufort</td>
+            <td>73–92</td>
+            <td>Fatigue H+17 à H+23</td>
+            <td>Maintenir rythme · Pas de long arrêt · Gels</td>
+          </tr>
+          <tr>
+            <td>🥶 Girotte → Le Signal</td>
+            <td>106–117</td>
+            <td>2ème nuit · Froid · Fatigue max</td>
+            <td>Caféine · Vêtements chauds · Mental ++</td>
+          </tr>
+          <tr>
+            <td>🌑 Contamines → Tricot</td>
+            <td>125–133</td>
+            <td>Dernière grosse montée · Petit matin</td>
+            <td>Tenir mentalement · 27 km restants !</td>
+          </tr>
+          <tr>
+            <td>🚀 Départ Courmayeur</td>
+            <td>0–10</td>
+            <td>Trop vite à l'adrénaline</td>
+            <td>Rester conservatrice · Zone 2 stricte</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Gestion nuits -->
+    <div class="nights-grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:1rem; margin-top:1.5rem;">
+      <div class="night-card info-card">
+        <div class="info-label">🌑 Gestion Nuit 1</div>
+        <p>23h50 → 08h00. Adrénaline du départ à contrôler. Effort conservateur. Manger toutes les 45 min même sans faim. Lampe frontale vérifiée.</p>
+      </div>
+      <div class="night-card info-card">
+        <div class="info-label">☀️ Gestion Journée</div>
+        <p>08h00 → 23h00. Chaleur entre 12h et 17h. Crème solaire. Casquette. Hydratation ++ dans les descentes. Profiter de l'énergie du jour.</p>
+      </div>
+      <div class="night-card info-card">
+        <div class="info-label">🌑 Gestion Nuit 2</div>
+        <p>23h00 → 09h00. La plus difficile. Température 5–8°C en altitude. Caféine stratégique. Musique. Penser : Chamonix dans quelques heures.</p>
+      </div>
+      <div class="night-card info-card">
+        <div class="info-label">🏁 Finish</div>
+        <p>09h00 → 14h45. Soleil. Chamonix qui se rapproche. Les Houches = 8 km restants. Col de Tricot = dernier gros effort. Tout donner.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       SECTION 5 — RÉCUPÉRATION
+  ══════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-number">05</div>
+      <div>
+        <h2>Récupération Post-Course</h2>
+        <p class="section-sub">Plan récupération Thisbé — Chamonix</p>
+      </div>
+    </div>
+
+    <div class="crew-note" style="margin-bottom:1.5rem;">
+      💡 Gabriel prépare 10 kg de glace pour un bain froid post-course. Excellent pour réduire l'inflammation musculaire. À organiser au logement des Houches ou à Chamonix.
+    </div>
+
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-label">🏁 Récupération immédiate</div>
+        <p>Accueillir à la ligne d'arrivée. Tenue sèche du sac arrivée. Boisson sucrée végétarienne + bouillon de légumes chaud.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-label">🌿 Alimentation</div>
+        <p>Repas complet digeste végétarien — riz, lentilles, patate douce, fromage, œufs. Glucides + protéines végétales prioritaires.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-label">🛁 Soins physiques</div>
+        <p>Bain froid + glace (10–15 min, 10–15°C). Massage léger des jambes. Bottes de compression si disponibles.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-label">💧 Hydratation</div>
+        <p>Boire régulièrement toutes les 30 min. Eau + électrolytes. Minimum 2L dans les 4 premières heures post-course.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-label">😴 Sommeil</div>
+        <p>Priorité absolue. Obscurité totale. Pas de réveil forcé. Le corps récupère principalement pendant le sommeil profond.</p>
+		    </div>
+      <div class="info-card">
+        <div class="info-label">🧳 Logistique générale</div>
+        <p>Retour au logement des Houches avec Gabriel. Douche chaude. Accès rapide aux affaires du sac arrivée. Possibilité de sieste avant repas.</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+<!-- Fin panneau Thisbé -->
   <!-- =============================================
        PAGE : COURSE
   ============================================= -->
@@ -2430,7 +2895,53 @@
     document.addEventListener('DOMContentLoaded', () => {
       handleHash();
       triggerReveal();
-    });
+    <!-- ═══════════════════════════════════════════════════════════════
+     SCRIPT JAVASCRIPT
+     À placer juste avant la balise fermante </body>
+═══════════════════════════════════════════════════════════════ -->
+<script>
+/**
+ * Switch entre les panneaux coureurs
+ * @param {string} runner - 'vivien' ou 'thisbe'
+ */
+function switchRunner(runner) {
+
+  // Désactive tous les onglets
+  document.querySelectorAll('.runner-tab').forEach(tab => {
+    tab.classList.remove('active');
+  });
+  // Active l'onglet correspondant au coureur sélectionné
+  document.querySelector(`.runner-tab.${runner}`).classList.add('active');
+
+  // Désactive tous les panneaux de contenu
+  document.querySelectorAll('.runner-panel').forEach(panel => {
+    panel.classList.remove('active');
+  });
+  // Active le panneau de contenu correspondant au coureur sélectionné
+  document.getElementById(`panel-${runner}`).classList.add('active');
+
+  // Sauvegarde le choix de l'utilisateur dans le localStorage
+  // pour le restaurer lors de la prochaine visite
+  localStorage.setItem('activeRunner', runner);
+
+  // Remonte en haut de la page pour une meilleure UX
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Exécute cette fonction une fois le DOM chargé
+document.addEventListener('DOMContentLoaded', () => {
+  // Récupère le dernier coureur actif sauvegardé
+  const saved = localStorage.getItem('activeRunner');
+  // Si un coureur a été sauvegardé et que ce n'est pas Vivien (le coureur par défaut)
+  // alors on active ce coureur
+  if (saved && saved !== 'vivien') {
+    switchRunner(saved);
+  } else {
+    // S'il n'y a pas de sauvegarde ou si c'est Vivien, on s'assure que Vivien est actif
+    document.querySelector('.runner-tab.vivien').classList.add('active');
+    document.getElementById('panel-vivien').classList.add('active');
+  }
+});
   </script>
 
 </body>
